@@ -1,3 +1,4 @@
+
 .row-header {
     margin: 0px auto;
     padding: 0px auto;
@@ -24,12 +25,22 @@
     margin: 0px;
     background: #9575CD;
     color: floralwhite;
+    border-radius: 0%;
 }
 
 address {
     font-size: 80%;
     margin: 0px;
     color: #0f0f0f;
+}
+
+body {
+    padding-top: 50px;
+    z-index: 0;
+}
+
+.navbar-dark {
+    background-color: #512DAB;
 }
 
 

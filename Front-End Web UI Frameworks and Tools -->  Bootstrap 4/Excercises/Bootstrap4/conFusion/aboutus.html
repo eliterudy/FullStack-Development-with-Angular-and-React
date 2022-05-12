@@ -18,7 +18,7 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-dark navbar-expand-sm bg-primary fixed-top">
+    <nav class="navbar navbar-dark navbar-expand-sm fixed-top">
       <div class="container">
         <!-- button to toggle menu on navbar -->
         <button
@@ -34,7 +34,7 @@
           >Ristorante con Fusion</a
         >
         <!-- div for collapsible navbar content. Div acts as a wrapper to the unordered list -->
-        <div class="collapse navbar-collapse" id="Navbar">
+        <div class="collapse navbar-collapse ml-0 ml-sm-3" id="Navbar">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
               <a class="nav-link" href="./index.html">Home</a>
@@ -65,8 +65,14 @@
     </header>
 
     <div class="container">
-      <div>
-        <div class="row-header">
+      <!-- Container for content head  -->
+      <div class="row">
+        <!-- Breadcrumb with links in ordered list -->
+        <ol class="col-12 breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">About Us</li>
+        </ol>
+        <div class="row-header col-12">
           <h3>About Us</h3>
           <hr />
         </div>
