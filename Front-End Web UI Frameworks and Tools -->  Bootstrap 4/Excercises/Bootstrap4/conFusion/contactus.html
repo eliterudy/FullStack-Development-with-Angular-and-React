@@ -113,6 +113,7 @@
           <h5>Map of our Location</h5>
         </div>
         <div class="col-12 col-sm-11 offset-sm-1">
+            <!-- Button group exercise -->
           <div class="btn-group" role="group">
             <a role="button" class="btn btn-primary" href="tel:+7745261065"
               ><span class="fa fa-phone"></span> Call</a
@@ -127,6 +128,8 @@
               ><span class="fa fa-envelope-o"></span> Email</a
             >
           </div>
+            <!-- Button group exercise -->
+
         </div>
       </div>
 
@@ -134,7 +137,113 @@
         <div class="col-12">
           <h3>Send us your Feedback</h3>
         </div>
-        <div class="col-12 col-md-9">Form goes here</div>
+        <div class="col-12 col-md-9">
+            <!-- Feedback form exercise -->
+          <form>
+            <div class="form-group row">
+              <label for="firstname" class="col-md-2 col-form-label"
+                >First Name
+              </label>
+              <div class="col-md-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="firstname"
+                  name="firstname"
+                  placeholder="First Name"
+                ></input>
+              </div>
+            </div>
+            <div class="form-group row">
+                <label for="lastname" class="col-md-2 col-form-label"
+                >Last Name
+              </label>
+              <div class="col-md-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="lastname"
+                  name="lastname"
+                  placeholder="Last Name"
+                ></input>
+              </div>
+            </div>
+            <div class="form-group row">
+                <label for="telnum" class="col-12 col-md-2 col-form-label"
+                  >Contact Tel.
+                </label>
+                <div class="col-5 col-md-3">
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="areacode"
+                    name="areacode"
+                    placeholder="Area Code"
+                  ></input>
+                </div>
+                <div class="col-7 col-md-7">
+                    <input
+                      type="tel"
+                      class="form-control"
+                      id="telnum"
+                      name="telnum"
+                      placeholder="Tel. Number"
+                    ></input>
+                  </div>
+              </div>
+              <div class="form-group row">
+                  <label for="emailid" class="col-md-2 col-form-label"
+                  >Email
+                </label>
+                <div class="col-md-10">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="emailid"
+                    name="emailid"
+                    placeholder="Email Id"
+                  ></input>
+                </div>
+              </div>
+              <!-- Checkbox in form -->
+              <div class="form-group row align-items-center">
+                <div class="col-md-6 offset-md-2" >
+                  <div class="form-check" >
+                    <input type="checkbox" class="form-check-input" name="approve" id="approve" value="">
+                    <label class="form-check-label" for="approve"><strong>May we contact you?</strong></label>
+                  </div>
+                </div>
+                <!-- Select Dropdown in form -->
+                <div class="col-md-3 offset-md-1">
+                  <select class="form-control">
+                    <option>Tel.</option>
+                    <option>Email</option>
+                  </select>
+                </div>
+              </div>
+              <!-- Textarea in form -->
+              <div class="form-group row">
+                <label  class=" col-md-2 col-form-label" for="feedback">Your Feedback</label>  
+                <div class="col-md-10">
+                  <textarea
+                    class="form-control"
+                    id="feedback"
+                    name="feedback"
+                    rows="12"
+                  ></textarea>
+                </div>
+              </div>
+
+              <!-- Button to submit form -->
+              <div class="form-group row">
+                <div class="offset-md-2 col-md-10">
+                  <button type="submit" class="btn btn-primary">Send Feedback</button>
+                </div>
+              </div>
+        </form>
+                      <!-- Feedback form exercise -->
+
+        </div>
         <div class="col-12 col-md"></div>
       </div>
     </div>
