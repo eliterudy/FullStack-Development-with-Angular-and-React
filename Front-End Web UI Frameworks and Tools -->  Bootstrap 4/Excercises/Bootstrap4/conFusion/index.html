@@ -9,23 +9,22 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
 
   <!-- Bootstrap CSS -->
+  <!-- function to merge all css files in main.css -->
+  <!-- build:css css/main.css -->
   <link
     rel="stylesheet"
     href="node_modules/bootstrap/dist/css/bootstrap.min.css"
   />
-
-  <!-- FontAwesome imported  -->
   <link
     rel="stylesheet"
     href="node_modules/font-awesome/css/font-awesome.min.css"
   />
-
-  <!-- Bootstrap social imported -->
   <link
     rel="stylesheet"
     href="node_modules/bootstrap-social/bootstrap-social.css"
   />
   <link rel="stylesheet" href="css/styles.css" />
+  <!-- endbuild -->
 
   <head>
     <title>Ristorante Con Fusion</title>
@@ -675,39 +674,11 @@
       </div>
     </footer>
     <!-- jQuery first, then Popper.js, then Bootstrap JS. -->
+    <!-- build:js js/main.js -->
     <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
     <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script>
-      $(document).ready(function () {
-        /* JQuery for tooltip */
-        // $('[data-toggle="tooltip"]').tooltip();
-
-        $("#mycarousel").carousel({ interval: 2000 });
-        $("#carouselButton").click(function () {
-          if ($("#carouselButton").children("span").hasClass("fa-pause")) {
-            $("#mycarousel").carousel("pause");
-            $("#carouselButton")
-              .children("span")
-              .removeClass("fa-pause")
-              .addClass("fa-play");
-          } else {
-            $("#mycarousel").carousel("cycle");
-            $("#carouselButton")
-              .children("span")
-              .removeClass("fa-play")
-              .addClass("fa-pause");
-          }
-        });
-
-        $("#reserveButton").click(function () {
-          $("#reserveModal").modal({ show: true });
-        });
-
-        $("#loginButton").click(function () {
-          $("#loginModal").modal({ show: true });
-        });
-      });
-    </script>
+    <script src="./js/scripts.js"></script>
+    <!-- endbuild -->
   </body>
 </html>

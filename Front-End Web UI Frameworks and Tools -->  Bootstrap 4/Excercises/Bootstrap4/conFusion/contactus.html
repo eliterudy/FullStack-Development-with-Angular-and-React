@@ -11,6 +11,8 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
 
     <!-- Bootstrap CSS -->
+    <!-- function to merge all css files in main.css -->
+    <!-- build:css css/main.css -->
     <link
       rel="stylesheet"
       href="node_modules/bootstrap/dist/css/bootstrap.min.css"
@@ -24,6 +26,7 @@
       href="node_modules/bootstrap-social/bootstrap-social.css"
     />
     <link href="css/styles.css" rel="stylesheet" />
+    <!-- endbuild -->
   </head>
 
   <body>
@@ -37,8 +40,9 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#"><img src="./img/logo.png" height="30" width="41"
-          /></a>
+        <a class="navbar-brand" href="#"
+          ><img src="./img/logo.png" height="30" width="41"
+        /></a>
         <div class="collapse navbar-collapse" id="Navbar">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
@@ -114,7 +118,7 @@
           <h5>Map of our Location</h5>
         </div>
         <div class="col-12 col-sm-11 offset-sm-1">
-            <!-- Button group exercise -->
+          <!-- Button group exercise -->
           <div class="btn-group" role="group">
             <a role="button" class="btn btn-primary" href="tel:+7745261065"
               ><span class="fa fa-phone"></span> Call</a
@@ -129,8 +133,7 @@
               ><span class="fa fa-envelope-o"></span> Email</a
             >
           </div>
-            <!-- Button group exercise -->
-
+          <!-- Button group exercise -->
         </div>
       </div>
 
@@ -139,7 +142,7 @@
           <h3>Send us your Feedback</h3>
         </div>
         <div class="col-12 col-md-9">
-            <!-- Feedback form exercise -->
+          <!-- Feedback form exercise -->
           <form>
             <div class="form-group row">
               <label for="firstname" class="col-md-2 col-form-label"
@@ -152,11 +155,11 @@
                   id="firstname"
                   name="firstname"
                   placeholder="First Name"
-                ></input>
+                />
               </div>
             </div>
             <div class="form-group row">
-                <label for="lastname" class="col-md-2 col-form-label"
+              <label for="lastname" class="col-md-2 col-form-label"
                 >Last Name
               </label>
               <div class="col-md-10">
@@ -166,84 +169,95 @@
                   id="lastname"
                   name="lastname"
                   placeholder="Last Name"
-                ></input>
+                />
               </div>
             </div>
             <div class="form-group row">
-                <label for="telnum" class="col-12 col-md-2 col-form-label"
-                  >Contact Tel.
-                </label>
-                <div class="col-5 col-md-3">
-                  <input
-                    type="tel"
-                    class="form-control"
-                    id="areacode"
-                    name="areacode"
-                    placeholder="Area Code"
-                  ></input>
-                </div>
-                <div class="col-7 col-md-7">
-                    <input
-                      type="tel"
-                      class="form-control"
-                      id="telnum"
-                      name="telnum"
-                      placeholder="Tel. Number"
-                    ></input>
-                  </div>
+              <label for="telnum" class="col-12 col-md-2 col-form-label"
+                >Contact Tel.
+              </label>
+              <div class="col-5 col-md-3">
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="areacode"
+                  name="areacode"
+                  placeholder="Area Code"
+                />
               </div>
-              <div class="form-group row">
-                  <label for="emailid" class="col-md-2 col-form-label"
-                  >Email
-                </label>
-                <div class="col-md-10">
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="emailid"
-                    name="emailid"
-                    placeholder="Email Id"
-                  ></input>
-                </div>
+              <div class="col-7 col-md-7">
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="telnum"
+                  name="telnum"
+                  placeholder="Tel. Number"
+                />
               </div>
-              <!-- Checkbox in form -->
-              <div class="form-group row align-items-center">
-                <div class="col-md-6 offset-md-2" >
-                  <div class="form-check" >
-                    <input type="checkbox" class="form-check-input" name="approve" id="approve" value="">
-                    <label class="form-check-label" for="approve"><strong>May we contact you?</strong></label>
-                  </div>
-                </div>
-                <!-- Select Dropdown in form -->
-                <div class="col-md-3 offset-md-1">
-                  <select class="form-control">
-                    <option>Tel.</option>
-                    <option>Email</option>
-                  </select>
-                </div>
+            </div>
+            <div class="form-group row">
+              <label for="emailid" class="col-md-2 col-form-label"
+                >Email
+              </label>
+              <div class="col-md-10">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="emailid"
+                  name="emailid"
+                  placeholder="Email Id"
+                />
               </div>
-              <!-- Textarea in form -->
-              <div class="form-group row">
-                <label  class=" col-md-2 col-form-label" for="feedback">Your Feedback</label>  
-                <div class="col-md-10">
-                  <textarea
-                    class="form-control"
-                    id="feedback"
-                    name="feedback"
-                    rows="12"
-                  ></textarea>
-                </div>
+            </div>
+            <!-- Checkbox in form -->
+          </form>
+          <!-- Feedback form exercise -->
+          <div class="form-group row align-items-center">
+            <div class="col-md-6 offset-md-2">
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  name="approve"
+                  id="approve"
+                  value=""
+                />
+                <label class="form-check-label" for="approve"
+                  ><strong>May we contact you?</strong></label
+                >
               </div>
+            </div>
+            <!-- Select Dropdown in form -->
+            <div class="col-md-3 offset-md-1">
+              <select class="form-control">
+                <option>Tel.</option>
+                <option>Email</option>
+              </select>
+            </div>
+          </div>
+          <!-- Textarea in form -->
+          <div class="form-group row">
+            <label class="col-md-2 col-form-label" for="feedback"
+              >Your Feedback</label
+            >
+            <div class="col-md-10">
+              <textarea
+                class="form-control"
+                id="feedback"
+                name="feedback"
+                rows="12"
+              ></textarea>
+            </div>
+          </div>
 
-              <!-- Button to submit form -->
-              <div class="form-group row">
-                <div class="offset-md-2 col-md-10">
-                  <button type="submit" class="btn btn-primary">Send Feedback</button>
-                </div>
-              </div>
-        </form>
-                      <!-- Feedback form exercise -->
-
+          <!-- Button to submit form -->
+          <div class="form-group row">
+            <div class="offset-md-2 col-md-10">
+              <button type="submit" class="btn btn-primary">
+                Send Feedback
+              </button>
+            </div>
+          </div>
         </div>
         <div class="col-12 col-md"></div>
       </div>
@@ -314,8 +328,11 @@
       </div>
     </footer>
     <!-- jQuery first, then Popper.js, then Bootstrap JS. -->
+    <!-- build:js js/main.js -->
     <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
     <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./js/scripts.js"></script>
+    <!-- endbuild -->
   </body>
 </html>
