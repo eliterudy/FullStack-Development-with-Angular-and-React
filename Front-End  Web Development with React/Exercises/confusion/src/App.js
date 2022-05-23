@@ -7,6 +7,7 @@ import "./App.css";
 
 function App() {
   const [dishes, updateListOfDishes] = useState(DISHES);
+  console.log(dishes);
   return (
     <div>
       <Navbar dark color={"primary"}>
