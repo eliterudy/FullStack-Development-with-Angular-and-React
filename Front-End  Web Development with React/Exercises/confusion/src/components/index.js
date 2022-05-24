@@ -4,3 +4,4 @@ export { default as Main } from "./MainComponent";
 export { default as Header } from "./HeaderComponent";
 export { default as Footer } from "./FooterComponent";
 export { default as Home } from "./HomeComponent";
+export { default as Contact } from "./ContactComponent";
