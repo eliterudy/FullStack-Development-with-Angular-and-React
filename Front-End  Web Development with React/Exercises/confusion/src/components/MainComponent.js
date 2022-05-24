@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Navbar, NavbarBrand } from "reactstrap";
-import { Menu, DishDetail } from "./index";
+import { Menu, DishDetail, Header, Footer } from "./index";
 import { DISHES } from "../shared/dishes";
 
 function MainComponent() {
@@ -9,14 +8,9 @@ function MainComponent() {
   const onDishSelect = (dishId) => {
     updateSelectedDish(dishId);
   };
-  console.log(":EE", dishes.filter((dish) => dish.id === selectedDish)[0]);
   return (
     <div>
-      <Navbar dark color={"primary"}>
-        <div className="container">
-          <NavbarBrand href="/"> Ristorante Con Fusion</NavbarBrand>
-        </div>
-      </Navbar>
+      <Header />
       <div className="container">
         <Menu
           dishes={dishes}
@@ -28,6 +22,7 @@ function MainComponent() {
           />
         )}
       </div>
+      <Footer />
     </div>
   );
 }
