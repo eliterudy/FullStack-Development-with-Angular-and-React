@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { Navbar, NavbarBrand } from "reactstrap";
-import { DISHES } from "./shared/dishes";
 import "./App.css";
 import { Main as MainComponent } from "./components/index";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
-    <div>
-      <MainComponent />
-    </div>
+    <BrowserRouter>
+      <div>
+        <MainComponent />
+      </div>
+    </BrowserRouter>
   );
 }
 
