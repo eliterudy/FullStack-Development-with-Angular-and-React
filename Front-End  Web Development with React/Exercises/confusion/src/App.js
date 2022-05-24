@@ -1,21 +1,13 @@
-import logo from "./logo.svg";
 import React, { useState } from "react";
 import { Navbar, NavbarBrand } from "reactstrap";
-import Menu from "./components/MenuComponent";
 import { DISHES } from "./shared/dishes";
 import "./App.css";
+import { Main as MainComponent } from "./components/index";
 
 function App() {
-  const [dishes, updateListOfDishes] = useState(DISHES);
-  console.log(dishes);
   return (
     <div>
-      <Navbar dark color={"primary"}>
-        <div className="container">
-          <NavbarBrand href="/"> Ristorante Con Fusion</NavbarBrand>
-        </div>
-      </Navbar>
-      <Menu dishes={dishes} />
+      <MainComponent />
     </div>
   );
 }

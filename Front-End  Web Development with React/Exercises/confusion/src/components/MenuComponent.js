@@ -7,33 +7,31 @@ import {
   CardText,
   CardTitle,
 } from "reactstrap";
-import DishDetail from "./DishdetailComponent";
 
-const MenuComponent = (props) => {
-  const [selectedDish, updateSelectedDish] = useState(null);
-
-  const onDishSelect = (dish) => {
-    updateSelectedDish(dish);
-  };
-  const menu = props.dishes.map((dish) => {
-    return (
-      <div key={dish.id} className="col-12 col-md-5 m-1">
-        <Card onClick={() => onDishSelect(dish)}>
-          <CardImg width="100%" src={dish.image} alt={dish.name} />
-          <CardImgOverlay>
-            <CardTitle>{dish.name}</CardTitle>
-          </CardImgOverlay>
-        </Card>
-      </div>
-    );
-  });
-
+const RenderMenuItem = ({ dish, onClick }) => {
   return (
-    <div className="container">
-      <div className="row">{menu} </div>
-      {selectedDish && <DishDetail dish={selectedDish} />}
+    <div key={dish.id} className="col-12 col-md-5 m-1">
+      <Card
+        onClick={() => {
+          console.log("here");
+          onClick(dish.id);
+        }}
+      >
+        <CardImg width="100%" src={dish.image} alt={dish.name} />
+        <CardImgOverlay>
+          <CardTitle>{dish.name}</CardTitle>
+        </CardImgOverlay>
+      </Card>
     </div>
   );
 };
 
-export default MenuComponent;
+const Menu = (props) => {
+  const menu = props.dishes.map((dish) => {
+    return <RenderMenuItem dish={dish} onClick={props.onElementClicked} />;
+  });
+
+  return <div className="row">{menu} </div>;
+};
+
+export default Menu;
