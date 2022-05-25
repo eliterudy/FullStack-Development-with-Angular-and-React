@@ -1,8 +1,40 @@
-import React from "react";
-import { Breadcrumb, BreadcrumbItem } from "reactstrap";
+import React, { useState } from "react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Col,
+} from "reactstrap";
 import { Link } from "react-router-dom";
 
 const Contact = (props) => {
+  const [formValues, updateFormValues] = useState({
+    firstname: "",
+    lastname: "",
+    telnum: "",
+    email: "",
+    agree: false,
+    contactType: "Tel.",
+    message: "",
+  });
+
+  const handleInputChange = (event) => {
+    const target = event.target;
+    const value = target.type =="checkbox"? target.checked: target.value;
+    const name = target.name
+    updateFormValues({...formValues, [name]:value})
+
+  };
+
+  const handleSubmit = (event) => {
+    console.log("Current state is: ", JSON.stringify(formValues));
+    alert(JSON.stringify(formValues))
+    event.preventDefault();
+  };
   return (
     <div className="container">
       <div className="row">
@@ -57,6 +89,131 @@ const Contact = (props) => {
               <i className="fa fa-envelope-o"></i> Email
             </a>
           </div>
+        </div>
+      </div>
+      <div className="row row-content">
+        <div className="col-12">
+          <h3>Send us your Feedback</h3>
+        </div>
+        <div className="col-12 col-md-9">
+          <Form onSubmit={(e) => handleSubmit(e)}>
+            {/* Row inside form using FormGroup */}
+            <FormGroup row>
+              {/* Occupy 2 columns using md */}
+              <Label htmlFor="firstname" md={2}>
+                First Name
+              </Label>
+              <Col md={10}>
+                <Input
+                  type="text"
+                  id="firstname"
+                  name="firstname"
+                  placeholder="First Name"
+                  onChange={e => handleInputChange(e)}
+                  value={formValues.firstname}
+                />
+              </Col>
+            </FormGroup>
+            <FormGroup row>
+              {/* Occupy 2 columns using md */}
+              <Label htmlFor="lastname" md={2}>
+                Last Name
+              </Label>
+              <Col md={10}>
+                <Input
+                  type="text"
+                  id="lastname"
+                  name="lastname"
+                  placeholder="Last Name"
+                  onChange={e => handleInputChange(e)}
+                  value={formValues.lastname}
+                />
+              </Col>
+            </FormGroup>
+            <FormGroup row>
+              {/* Occupy 2 columns using md */}
+              <Label htmlFor="telnum" md={2}>
+                Contact Tel.
+              </Label>
+              <Col md={10}>
+                <Input
+                  type="tel"
+                  id="telnum"
+                  name="telnum"
+                  placeholder="Tel. Number"
+                  onChange={e => handleInputChange(e)}
+                  value={formValues.telnum}
+                />
+              </Col>
+            </FormGroup>
+            <FormGroup row>
+              {/* Occupy 2 columns using md */}
+              <Label htmlFor="email" md={2}>
+                Email
+              </Label>
+              <Col md={10}>
+                <Input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Email"
+                  onChange={e => handleInputChange(e)}
+                  value={formValues.email}
+                />
+              </Col>
+            </FormGroup>
+            <FormGroup row className="align-items-center">
+              {/* For medium screen, occupy 6 columns and left offset of 2 */}
+              <Col md={{ size: 6, offset: 2 }}>
+                <FormGroup check>
+                  <Label check>
+                    <Input
+                      type="checkbox"
+                      name="agree"
+                      onChange={e => handleInputChange(e)}
+                      checked={formValues.agree}
+                    />{" "}
+                    <strong>May we contact you?</strong>
+                  </Label>
+                </FormGroup>
+              </Col>
+              <Col md={{ size: 3, offset: 1 }}>
+                <Input
+                  type="select"
+                  name="contactType"
+                  onChange={e => handleInputChange(e)}
+                  value={formValues.contactType}
+                >
+                  <option>Tel.</option>
+                  <option>Email</option>
+                </Input>
+              </Col>
+            </FormGroup>
+            <FormGroup row>
+              {/* Occupy 2 columns using md */}
+              <Label htmlFor="message" md={2}>
+                Your Feedback
+              </Label>
+              <Col md={10}>
+                <Input
+                  type="textarea"
+                  id="message"
+                  name="message"
+                  placeholder=""
+                  rows="12"
+                  onChange={e => handleInputChange(e)}
+                  value={formValues.message}
+                />
+              </Col>
+            </FormGroup>
+            <FormGroup row>
+              <Col md={{ size: 10, offset: 2 }}>
+                <Button type="submit" color="primary">
+                  Send Feedback
+                </Button>
+              </Col>
+            </FormGroup>
+          </Form>
         </div>
       </div>
     </div>
