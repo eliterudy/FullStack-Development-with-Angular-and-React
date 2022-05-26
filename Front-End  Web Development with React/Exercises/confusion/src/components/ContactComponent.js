@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,6 +8,7 @@ import {
   Label,
   Input,
   Col,
+  FormFeedback,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 
@@ -21,20 +22,89 @@ const Contact = (props) => {
     contactType: "Tel.",
     message: "",
   });
+  const [touched, updateTouchValidation] = useState({
+    firstname: false,
+    lastname: false,
+    telnum: false,
+    email: false,
+  });
 
+  const [errorMessages, updateErrorMessage] = useState({
+    firstname: "",
+    lastname: "",
+    telnum: "",
+    email: "",
+  });
+
+  // update state of all input fields
   const handleInputChange = (event) => {
     const target = event.target;
-    const value = target.type =="checkbox"? target.checked: target.value;
-    const name = target.name
-    updateFormValues({...formValues, [name]:value})
-
+    const value = target.type == "checkbox" ? target.checked : target.value;
+    const name = target.name;
+    updateFormValues({ ...formValues, [name]: value });
   };
 
+  // Form onsubmit
   const handleSubmit = (event) => {
-    console.log("Current state is: ", JSON.stringify(formValues));
-    alert(JSON.stringify(formValues))
+    alert(JSON.stringify(formValues));
     event.preventDefault();
   };
+
+  // Invoked when onBlur for Input tag is called
+  const handleBlur = (field, evt) => {
+    updateTouchValidation({ ...touched, [field]: true });
+  };
+
+  // Called when touched state is updated
+  useEffect(() => {
+    const { firstname, lastname, telnum, email } = formValues;
+    validate(firstname, lastname, telnum, email);
+  }, [touched, formValues]);
+
+  // Validate fields and update error messages
+  const validate = (firstname, lastname, telnum, email) => {
+    const errors = {
+      firstname: "",
+      lastname: "",
+      telnum: "",
+      email: "",
+    };
+
+    if (touched.firstname && firstname.length < 3) {
+      errors.firstname = "First Name should be >= 3 characters";
+    } else if (touched.firstname && firstname.length > 10) {
+      errors.firstname = "First Name should be <= 10 characters";
+    } else {
+      errors.firstname = "";
+    }
+
+    if (touched.lastname && lastname.length < 3) {
+      errors.lastname = "Last Name should be >= 3 characters";
+    } else if (touched.lastname && lastname.length > 10) {
+      errors.lastname = "Last Name should be <= 10 characters";
+    } else {
+      errors.lastname = "";
+    }
+
+    const reg = /^\d+$/;
+    if (touched.telnum && !reg.test(telnum)) {
+      errors.telnum = "Tel. num should contain only numbers";
+    } else {
+      errors.telnum = "";
+    }
+
+    if (
+      touched.email &&
+      email.split("").filter((x) => x === "@").length !== 1
+    ) {
+      errors.email = "Email should contain a @ symbol";
+    } else {
+      errors.email = "";
+    }
+
+    updateErrorMessage({ ...errors });
+  };
+
   return (
     <div className="container">
       <div className="row">
@@ -109,9 +179,13 @@ const Contact = (props) => {
                   id="firstname"
                   name="firstname"
                   placeholder="First Name"
-                  onChange={e => handleInputChange(e)}
+                  onBlur={(e) => handleBlur("firstname", e)}
+                  onChange={(e) => handleInputChange(e)}
                   value={formValues.firstname}
+                  valid={errorMessages.firstname === ""}
+                  invalid={errorMessages.firstname !== ""}
                 />
+                <FormFeedback>{errorMessages.firstname}</FormFeedback>
               </Col>
             </FormGroup>
             <FormGroup row>
@@ -125,9 +199,13 @@ const Contact = (props) => {
                   id="lastname"
                   name="lastname"
                   placeholder="Last Name"
-                  onChange={e => handleInputChange(e)}
+                  onBlur={(e) => handleBlur("lastname", e)}
+                  onChange={(e) => handleInputChange(e)}
                   value={formValues.lastname}
+                  valid={errorMessages.lastname === ""}
+                  invalid={errorMessages.lastname !== ""}
                 />
+                <FormFeedback>{errorMessages.lastname}</FormFeedback>
               </Col>
             </FormGroup>
             <FormGroup row>
@@ -141,9 +219,13 @@ const Contact = (props) => {
                   id="telnum"
                   name="telnum"
                   placeholder="Tel. Number"
-                  onChange={e => handleInputChange(e)}
+                  onBlur={(e) => handleBlur("telnum", e)}
+                  onChange={(e) => handleInputChange(e)}
                   value={formValues.telnum}
+                  valid={errorMessages.telnum === ""}
+                  invalid={errorMessages.telnum !== ""}
                 />
+                <FormFeedback>{errorMessages.telnum}</FormFeedback>
               </Col>
             </FormGroup>
             <FormGroup row>
@@ -157,9 +239,13 @@ const Contact = (props) => {
                   id="email"
                   name="email"
                   placeholder="Email"
-                  onChange={e => handleInputChange(e)}
+                  onBlur={(e) => handleBlur("email", e)}
+                  onChange={(e) => handleInputChange(e)}
                   value={formValues.email}
+                  valid={errorMessages.email === ""}
+                  invalid={errorMessages.email !== ""}
                 />
+                <FormFeedback>{errorMessages.email}</FormFeedback>
               </Col>
             </FormGroup>
             <FormGroup row className="align-items-center">
@@ -170,7 +256,7 @@ const Contact = (props) => {
                     <Input
                       type="checkbox"
                       name="agree"
-                      onChange={e => handleInputChange(e)}
+                      onChange={(e) => handleInputChange(e)}
                       checked={formValues.agree}
                     />{" "}
                     <strong>May we contact you?</strong>
@@ -181,7 +267,7 @@ const Contact = (props) => {
                 <Input
                   type="select"
                   name="contactType"
-                  onChange={e => handleInputChange(e)}
+                  onChange={(e) => handleInputChange(e)}
                   value={formValues.contactType}
                 >
                   <option>Tel.</option>
@@ -201,7 +287,7 @@ const Contact = (props) => {
                   name="message"
                   placeholder=""
                   rows="12"
-                  onChange={e => handleInputChange(e)}
+                  onChange={(e) => handleInputChange(e)}
                   value={formValues.message}
                 />
               </Col>
