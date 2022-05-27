@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react";
-import { Jumbotron, Navbar, NavbarBrand } from "reactstrap";
+import { Navbar, NavbarBrand } from "reactstrap";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
