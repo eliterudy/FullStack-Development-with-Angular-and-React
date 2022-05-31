@@ -1,5 +1,5 @@
-import { DISHES } from "../shared/dishes";
 import { PROMOTIONS } from "../shared/promotions";
+import { DISHES } from "../shared/dishes";
 import { LEADERS } from "../shared/leaders";
 import { COMMENTS } from "../shared/comments";
 import { createSlice } from "@reduxjs/toolkit";
@@ -9,15 +9,6 @@ export const initialState = {
   promotions: PROMOTIONS,
   comments: COMMENTS,
   leaders: LEADERS,
-};
-
-export const Reducer = (state = initialState, action) => {
-  switch (action.type) {
-    default:
-      state = { ...state, dishes: DISHES };
-  }
-
-  return state;
 };
 
 export const rootSlice = createSlice({

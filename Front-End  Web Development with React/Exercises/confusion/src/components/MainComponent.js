@@ -7,11 +7,12 @@ import { useSelector, useDispatch } from "react-redux";
 
 const MainComponent = () => {
   const state = useSelector((state) => {
+    console.log(state);
     return {
-      dishes: state.root.dishes,
-      promotions: state.root.promotions,
-      leaders: state.root.leaders,
-      comments: state.root.comments,
+      dishes: state.dishes,
+      promotions: state.promotions,
+      leaders: state.leaders,
+      comments: state.comments,
     };
   });
   const dispatch = useDispatch();
