@@ -4,15 +4,14 @@ import { Menu, Header, Footer, Home, Contact, About } from "./index";
 import { Switch, Route, Redirect } from "react-router-dom";
 import DishDetail from "./DishDetailComponent";
 import { useSelector, useDispatch } from "react-redux";
-
 const MainComponent = () => {
   const state = useSelector((state) => {
-    console.log(state);
+    const { dishes, promotions, leaders, comments } = state;
     return {
-      dishes: state.dishes,
-      promotions: state.promotions,
-      leaders: state.leaders,
-      comments: state.comments,
+      dishes,
+      promotions,
+      leaders,
+      comments,
     };
   });
   const dispatch = useDispatch();

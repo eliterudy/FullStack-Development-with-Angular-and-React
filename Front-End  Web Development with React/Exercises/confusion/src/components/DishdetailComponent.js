@@ -20,10 +20,36 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
+import { useSelector, useDispatch } from "react-redux";
+import { addComment } from "../redux/comments";
 
 const required = (value) => value && value.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
 const minLength = (len) => (val) => val && val.length >= len;
+
+const DishDetail = (props) => {
+  const { dish, comments } = props;
+  return (
+    <div className="container">
+      <div className="row">
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <Link to={"/menu"}>Menu</Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem active>{dish.name}</BreadcrumbItem>
+        </Breadcrumb>
+        <div className="col-12">
+          <h3>{dish.name}</h3>
+          <hr />
+        </div>
+      </div>
+      <div className="row">
+        <RenderDish dish={dish} />
+        <RenderComments comments={comments} dishId={dish.id} />
+      </div>
+    </div>
+  );
+};
 
 const RenderDish = ({ dish }) => {
   if (dish !== null) {
@@ -43,16 +69,61 @@ const RenderDish = ({ dish }) => {
   }
 };
 
-const CommentForm = () => {
+const RenderComments = ({ comments, dishId }) => {
+  if (comments !== null) {
+    return (
+      <div className="col-12 col-md-5 m-1">
+        <h3>Comments</h3>
+        <div className="list-unstyled">
+          {comments.map((comment) => {
+            const date = new Date(comment.date);
+            const options = {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            };
+            return (
+              <div key={comment.id}>
+                <p>{comment.comment}</p>
+                <p>
+                  -- {comment.author},{" "}
+                  {date.toLocaleDateString("en-EN", options)}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+        <CommentForm dishId={dishId} />
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <CommentForm dishId={dishId} />
+      </div>
+    );
+  }
+};
+
+const CommentForm = ({ dishId }) => {
   const [isModalOpen, updateModalOpen] = useState(false);
   const toggleModal = () => {
     updateModalOpen(!isModalOpen);
   };
+  const dispatch = useDispatch();
 
   const handleSubmit = (values) => {
     console.log(":", values);
-    // updateModalOpen(!isModalOpen);
-    alert(JSON.stringify(values));
+    updateModalOpen(!isModalOpen);
+    // alert(JSON.stringify(values));
+    dispatch(
+      addComment({
+        dishId: dishId,
+        rating: values.rating || 1,
+        author: values.author,
+        comment: values.comment || "",
+      })
+    );
   };
 
   return (
@@ -121,67 +192,6 @@ const CommentForm = () => {
           </LocalForm>
         </ModalBody>
       </Modal>
-    </div>
-  );
-};
-
-const RenderComments = ({ comments }) => {
-  if (comments !== null) {
-    return (
-      <div className="col-12 col-md-5 m-1">
-        <h3>Comments</h3>
-        <div className="list-unstyled">
-          {comments.map((comment) => {
-            const date = new Date(comment.date);
-            const options = {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            };
-            return (
-              <div key={comment.id}>
-                <p>{comment.comment}</p>
-                <p>
-                  -- {comment.author},{" "}
-                  {date.toLocaleDateString("en-EN", options)}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-        <CommentForm />
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <CommentForm />
-      </div>
-    );
-  }
-};
-
-const DishDetail = (props) => {
-  const { dish, comments } = props;
-
-  return (
-    <div className="container">
-      <div className="row">
-        <Breadcrumb>
-          <BreadcrumbItem>
-            <Link to={"/menu"}>Menu</Link>
-          </BreadcrumbItem>
-          <BreadcrumbItem active>{dish.name}</BreadcrumbItem>
-        </Breadcrumb>
-        <div className="col-12">
-          <h3>{dish.name}</h3>
-          <hr />
-        </div>
-      </div>
-      <div className="row">
-        <RenderDish dish={dish} />
-        <RenderComments comments={comments} />
-      </div>
     </div>
   );
 };
