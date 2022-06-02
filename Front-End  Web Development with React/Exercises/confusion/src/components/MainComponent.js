@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Menu, Header, Footer, Home, Contact, About } from "./index";
-
+import { fetchDishes } from "../redux/thunk";
 import { Switch, Route, Redirect } from "react-router-dom";
 import DishDetail from "./DishDetailComponent";
 import { useSelector, useDispatch } from "react-redux";
 const MainComponent = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchDishes());
+  }, []);
   const state = useSelector((state) => {
     const { dishes, promotions, leaders, comments } = state;
     return {
@@ -14,12 +19,14 @@ const MainComponent = () => {
       comments,
     };
   });
-  const dispatch = useDispatch();
   const { dishes, promotions, leaders, comments } = state;
+
   const HomePage = () => {
     return (
       <Home
-        dish={dishes.filter((dish) => dish.featured)[0]}
+        dish={dishes.dishes && dishes.dishes.filter((dish) => dish.featured)[0]}
+        dishesLoading={dishes.isLoading}
+        dishesErrMess={dishes.errMess}
         promotion={promotions.filter((promotion) => promotion.featured)[0]}
         leader={leaders.filter((leader) => leader.featured)[0]}
       />
@@ -30,7 +37,9 @@ const MainComponent = () => {
     const selectedDishId = parseInt(match.params.dishId, 10);
     return (
       <DishDetail
-        dish={dishes.filter((dish) => dish.id === selectedDishId)[0]}
+        dish={dishes.dishes.filter((dish) => dish.id === selectedDishId)[0]}
+        isLoading={dishes.isLoading}
+        errMess={dishes.errMess}
         comments={comments.filter(
           (comment) => comment.dishId === selectedDishId
         )}

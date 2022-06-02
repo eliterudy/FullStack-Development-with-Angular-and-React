@@ -22,33 +22,52 @@ import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { useSelector, useDispatch } from "react-redux";
 import { addComment } from "../redux/comments";
+import Loading from "./LoadingComponent";
 
 const required = (value) => value && value.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
 const minLength = (len) => (val) => val && val.length >= len;
 
 const DishDetail = (props) => {
-  const { dish, comments } = props;
-  return (
-    <div className="container">
-      <div className="row">
-        <Breadcrumb>
-          <BreadcrumbItem>
-            <Link to={"/menu"}>Menu</Link>
-          </BreadcrumbItem>
-          <BreadcrumbItem active>{dish.name}</BreadcrumbItem>
-        </Breadcrumb>
-        <div className="col-12">
-          <h3>{dish.name}</h3>
-          <hr />
+  const { dish, comments, isLoading, errMess } = props;
+  if (isLoading) {
+    return (
+      <div className="container">
+        <div className="row">
+          <h4>{errMess}</h4>
         </div>
       </div>
-      <div className="row">
-        <RenderDish dish={dish} />
-        <RenderComments comments={comments} dishId={dish.id} />
+    );
+  } else if (errMess) {
+    return (
+      <div className="container">
+        <div className="row">
+          <Loading />
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="container">
+        <div className="row">
+          <Breadcrumb>
+            <BreadcrumbItem>
+              <Link to={"/menu"}>Menu</Link>
+            </BreadcrumbItem>
+            <BreadcrumbItem active>{dish.name}</BreadcrumbItem>
+          </Breadcrumb>
+          <div className="col-12">
+            <h3>{dish.name}</h3>
+            <hr />
+          </div>
+        </div>
+        <div className="row">
+          <RenderDish dish={dish} />
+          <RenderComments comments={comments} dishId={dish.id} />
+        </div>
+      </div>
+    );
+  }
 };
 
 const RenderDish = ({ dish }) => {
@@ -113,9 +132,7 @@ const CommentForm = ({ dishId }) => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values) => {
-    console.log(":", values);
     updateModalOpen(!isModalOpen);
-    // alert(JSON.stringify(values));
     dispatch(
       addComment({
         dishId: dishId,
