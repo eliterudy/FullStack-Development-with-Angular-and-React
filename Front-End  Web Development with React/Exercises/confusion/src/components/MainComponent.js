@@ -22,9 +22,9 @@ const MainComponent = () => {
     };
   });
   const { dishes, promotions, leaders, comments } = state;
-  const resetFeedbackForm = () => {
-    dispatch(actions.reset("feedback"));
-  };
+  // const resetFeedbackForm = () => {
+  //   dispatch(actions.reset("feedback"));
+  // };
 
   const HomePage = () => {
     return (
@@ -61,7 +61,7 @@ const MainComponent = () => {
         <Route path="/aboutus" component={() => <About leaders={leaders} />} />
         <Route exact path="/menu" component={() => <Menu dishes={dishes} />} />
         <Route path="/menu/:dishId" component={DishWithId} />
-        <Route exact path="/contactus" component={() => <Contact />} />
+        <Route exact path="/contactus" component={Contact} />
         <Redirect to="/home" />
       </Switch>
       <Footer />

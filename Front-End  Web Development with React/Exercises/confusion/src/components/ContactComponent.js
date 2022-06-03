@@ -9,8 +9,10 @@ import {
   Col,
   Row,
 } from "reactstrap";
+import { useSelector, useDispatch } from "react-redux";
+
 import { Link } from "react-router-dom";
-import { Control, Form, Errors } from "react-redux-form";
+import { Control, Form, Errors, actions } from "react-redux-form";
 
 const required = (value) => value && value.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
@@ -18,13 +20,14 @@ const minLength = (len) => (val) => val && val.length >= len;
 const isNumber = (val) => !isNaN(Number(val));
 const validEmail = (val) =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
-const minLengthValidator = minLength(3);
-const maxLengthValidator = maxLength(15);
-const requiredValidator = required();
+
 const Contact = (props) => {
+  const dispatch = useDispatch();
+
   // Form onsubmit
   const handleSubmit = (values) => {
     alert(JSON.stringify(values));
+    dispatch(actions.reset("feedback"));
   };
 
   return (
@@ -103,9 +106,9 @@ const Contact = (props) => {
                   name="firstname"
                   placeholder="First Name"
                   validators={{
-                    required: requiredValidator,
-                    minLength: minLengthValidator,
-                    maxLength: maxLengthValidator,
+                    required,
+                    minLength: minLength(3),
+                    maxLength: maxLength(15),
                   }}
                 />
                 <Errors
@@ -238,7 +241,7 @@ const Contact = (props) => {
               </Label>
               <Col md={10}>
                 <Control.textarea
-                  model="message"
+                  model=".message"
                   className="form-control"
                   id="message"
                   name="message"
