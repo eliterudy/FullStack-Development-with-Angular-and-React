@@ -4,6 +4,8 @@ import { fetchDishes } from "../redux/thunk";
 import { Switch, Route, Redirect } from "react-router-dom";
 import DishDetail from "./DishDetailComponent";
 import { useSelector, useDispatch } from "react-redux";
+import { actions } from "react-redux-form";
+
 const MainComponent = () => {
   const dispatch = useDispatch();
 
@@ -20,6 +22,9 @@ const MainComponent = () => {
     };
   });
   const { dishes, promotions, leaders, comments } = state;
+  const resetFeedbackForm = () => {
+    dispatch(actions.reset("feedback"));
+  };
 
   const HomePage = () => {
     return (
@@ -56,7 +61,7 @@ const MainComponent = () => {
         <Route path="/aboutus" component={() => <About leaders={leaders} />} />
         <Route exact path="/menu" component={() => <Menu dishes={dishes} />} />
         <Route path="/menu/:dishId" component={DishWithId} />
-        <Route exact path="/contactus" component={Contact} />
+        <Route exact path="/contactus" component={() => <Contact />} />
         <Redirect to="/home" />
       </Switch>
       <Footer />

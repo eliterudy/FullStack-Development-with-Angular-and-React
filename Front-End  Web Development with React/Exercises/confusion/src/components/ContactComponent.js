@@ -3,7 +3,6 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   Button,
-  Form,
   FormGroup,
   Label,
   Input,
@@ -11,7 +10,7 @@ import {
   Row,
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import { Control, LocalForm, Errors } from "react-redux-form";
+import { Control, Form, Errors } from "react-redux-form";
 
 const required = (value) => value && value.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
@@ -19,15 +18,10 @@ const minLength = (len) => (val) => val && val.length >= len;
 const isNumber = (val) => !isNaN(Number(val));
 const validEmail = (val) =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
-
+const minLengthValidator = minLength(3);
+const maxLengthValidator = maxLength(15);
+const requiredValidator = required();
 const Contact = (props) => {
-  const [errorMessages, updateErrorMessage] = useState({
-    firstname: "",
-    lastname: "",
-    telnum: "",
-    email: "",
-  });
-
   // Form onsubmit
   const handleSubmit = (values) => {
     alert(JSON.stringify(values));
@@ -94,7 +88,7 @@ const Contact = (props) => {
           <h3>Send us your Feedback</h3>
         </div>
         <div className="col-12 col-md-9">
-          <LocalForm onSubmit={(values) => handleSubmit(values)}>
+          <Form model="feedback" onSubmit={(values) => handleSubmit(values)}>
             {/* Row inside form using FormGroup */}
             <Row className="form-group">
               {/* Occupy 2 columns using md */}
@@ -109,9 +103,9 @@ const Contact = (props) => {
                   name="firstname"
                   placeholder="First Name"
                   validators={{
-                    required,
-                    minLength: minLength(3),
-                    maxLength: maxLength(15),
+                    required: requiredValidator,
+                    minLength: minLengthValidator,
+                    maxLength: maxLengthValidator,
                   }}
                 />
                 <Errors
@@ -260,7 +254,7 @@ const Contact = (props) => {
                 </Button>
               </Col>
             </Row>
-          </LocalForm>
+          </Form>
         </div>
       </div>
     </div>
