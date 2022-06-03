@@ -9,6 +9,7 @@ import {
 } from "reactstrap";
 import Loading from "./LoadingComponent";
 const RenderCard = ({ item, isLoading, errMess }) => {
+  console.log(item, isLoading, errMess);
   if (isLoading) {
     return <Loading />;
   } else if (errMess) {

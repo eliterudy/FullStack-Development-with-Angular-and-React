@@ -12,7 +12,7 @@ export const dishesSlice = createSlice({
   reducers: {
     dishesLoading: (state) => {
       state.errMess = null;
-      state.isLoading = false;
+      state.isLoading = true;
     },
     dishesFailed: (state, action) => {
       state.errMess = action.payload;
