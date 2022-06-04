@@ -21,24 +21,25 @@ import {
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { useSelector, useDispatch } from "react-redux";
-import { addComment } from "../redux/comments";
+import { addNewComment } from "../redux/comments";
 import Loading from "./LoadingComponent";
+import { baseURL } from "../shared/apis";
 
 const required = (value) => value && value.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
 const minLength = (len) => (val) => val && val.length >= len;
 
 const DishDetail = (props) => {
-  const { dish, comments, isLoading, errMess } = props;
-  if (isLoading) {
+  const { dish, comments, dishLoading, dishErrMess, commentErrMess } = props;
+  if (dishErrMess) {
     return (
       <div className="container">
         <div className="row">
-          <h4>{errMess}</h4>
+          <h4>{dishErrMess}</h4>
         </div>
       </div>
     );
-  } else if (errMess) {
+  } else if (dishLoading) {
     return (
       <div className="container">
         <div className="row">
@@ -63,7 +64,11 @@ const DishDetail = (props) => {
         </div>
         <div className="row">
           <RenderDish dish={dish} />
-          <RenderComments comments={comments} dishId={dish.id} />
+          <RenderComments
+            comments={comments}
+            dishId={dish.id}
+            errMess={commentErrMess}
+          />
         </div>
       </div>
     );
@@ -75,7 +80,7 @@ const RenderDish = ({ dish }) => {
     return (
       <div className="col-12 col-md-5 m-1">
         <Card>
-          <CardImg width="100%" src={dish.image} alt={dish.name} />
+          <CardImg width="100%" src={baseURL + dish.image} alt={dish.name} />
           <CardBody>
             <CardTitle>{dish.name}</CardTitle>
             <CardText>{dish.description}</CardText>
@@ -134,7 +139,7 @@ const CommentForm = ({ dishId }) => {
   const handleSubmit = (values) => {
     updateModalOpen(!isModalOpen);
     dispatch(
-      addComment({
+      addNewComment({
         dishId: dishId,
         rating: values.rating || 1,
         author: values.author,

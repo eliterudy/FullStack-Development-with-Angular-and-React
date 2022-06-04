@@ -19,8 +19,8 @@ export const dishesSlice = createSlice({
       state.isLoading = false;
     },
     addDishes: (state, action) => {
-      state.isLoading = false;
       state.errMess = null;
+      state.isLoading = false;
       state.dishes = [...action.payload];
     },
   },

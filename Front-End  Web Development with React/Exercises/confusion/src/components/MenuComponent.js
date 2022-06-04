@@ -11,12 +11,13 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import Loading from "./LoadingComponent";
-
+import { baseURL } from "../shared/apis";
 const RenderMenuItem = ({ dish, onClick }) => {
+  var str = baseURL + dish.image;
   return (
     <Card>
       <Link to={`/menu/${dish.id}`}>
-        <CardImg width="100%" src={dish.image} alt={dish.name} />
+        <CardImg width="100%" src={str} alt={dish.name} />
         <CardImgOverlay>
           <CardTitle>{dish.name}</CardTitle>
         </CardImgOverlay>
@@ -25,8 +26,7 @@ const RenderMenuItem = ({ dish, onClick }) => {
   );
 };
 
-const Menu = ({ dishes: dishState }) => {
-  const { dishes, errMess, isLoading } = dishState;
+const Menu = ({ dishes, isLoading, errMess }) => {
   const menu = dishes.map((dish) => (
     <div key={dish.id} className="col-12 col-md-5 m-1">
       <RenderMenuItem dish={dish} />
@@ -36,7 +36,7 @@ const Menu = ({ dishes: dishState }) => {
     return (
       <div className="container">
         <div className="row">
-          <h4>{errMess}</h4>
+          <Loading />
         </div>
       </div>
     );
@@ -44,7 +44,7 @@ const Menu = ({ dishes: dishState }) => {
     return (
       <div className="container">
         <div className="row">
-          <Loading />
+          <h4>{errMess}</h4>
         </div>
       </div>
     );
@@ -63,7 +63,7 @@ const Menu = ({ dishes: dishState }) => {
             <hr />
           </div>
         </div>
-        <div className="row">{menu} </div>
+        <div className="row">{menu}</div>
       </div>
     );
   }

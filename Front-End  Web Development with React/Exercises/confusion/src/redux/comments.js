@@ -1,21 +1,39 @@
 import { COMMENTS } from "../shared/comments";
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = COMMENTS;
+const initialState = {
+  isLoading: true,
+  errMess: null,
+  comments: [],
+};
 
 export const commentsSlice = createSlice({
   name: "comments",
   initialState,
   reducers: {
-    addComment: (state, action) => {
-      var comment = action.payload;
-      comment.id = state.length;
-      comment.date = new Date().toISOString();
-      state.push(comment);
+    addNewComment: (state, action) => {
+      var newComment = action.payload;
+      newComment.id = state.comments.length;
+      newComment.date = new Date().toISOString();
+      state.comments = [...state.comments, newComment];
+    },
+    commentsLoading: (state) => {
+      state.errMess = null;
+      state.isLoading = true;
+    },
+    commentsFailed: (state, action) => {
+      state.errMess = action.payload;
+      state.isLoading = false;
+    },
+    addComments: (state, action) => {
+      state.errMess = null;
+      state.isLoading = false;
+      state.comments = [...action.payload];
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addComment } = commentsSlice.actions;
+export const { addNewComment, commentsLoading, commentsFailed, addComments } =
+  commentsSlice.actions;
 export default commentsSlice.reducer;

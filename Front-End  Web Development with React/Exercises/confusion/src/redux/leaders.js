@@ -1,18 +1,31 @@
-import { LEADERS } from "../shared/leaders";
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = LEADERS;
-
+const initialState = {
+  isLoading: true,
+  errMess: null,
+  leaders: [],
+};
 export const leadersSlice = createSlice({
   name: "leaders",
   initialState,
   reducers: {
-    default: (state) => {
-      state = LEADERS;
+    leadersLoading: (state) => {
+      state.errMess = null;
+      state.isLoading = true;
+    },
+    leadersFailed: (state, action) => {
+      state.errMess = action.payload;
+      state.isLoading = false;
+    },
+    addLeaders: (state, action) => {
+      state.errMess = null;
+      state.isLoading = false;
+      state.leaders = [...action.payload];
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-//   export const { increment } = leadersSlice.actions;
+export const { leadersLoading, leadersFailed, addLeaders } =
+  leadersSlice.actions;
 export default leadersSlice.reducer;

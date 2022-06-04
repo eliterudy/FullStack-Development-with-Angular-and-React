@@ -1,27 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { Menu, Header, Footer, Home, Contact, About } from "./index";
-import { fetchDishes } from "../redux/thunk";
+import {
+  fetchDishes,
+  fetchComments,
+  fetchPromotions,
+  fetchLeaders,
+} from "../redux/thunk";
 import { Switch, Route, Redirect } from "react-router-dom";
 import DishDetail from "./DishDetailComponent";
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "react-redux-form";
+import { baseURL } from "../shared/apis";
 
 const MainComponent = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchDishes());
+    dispatch(fetchComments());
+    dispatch(fetchPromotions());
+    dispatch(fetchLeaders());
   }, []);
+
   const state = useSelector((state) => {
     const { dishes, promotions, leaders, comments } = state;
     return {
-      dishes,
-      promotions,
-      leaders,
-      comments,
+      dishState: dishes,
+      promotionState: promotions,
+      leaderState: leaders,
+      commentState: comments,
     };
   });
-  const { dishes, promotions, leaders, comments } = state;
+  const { dishState, promotionState, leaderState, commentState } = state;
   // const resetFeedbackForm = () => {
   //   dispatch(actions.reset("feedback"));
   // };
@@ -29,11 +39,20 @@ const MainComponent = () => {
   const HomePage = () => {
     return (
       <Home
-        dish={dishes.dishes && dishes.dishes.filter((dish) => dish.featured)[0]}
-        dishesLoading={dishes.isLoading}
-        dishesErrMess={dishes.errMess}
-        promotion={promotions.filter((promotion) => promotion.featured)[0]}
-        leader={leaders.filter((leader) => leader.featured)[0]}
+        dish={
+          dishState.dishes &&
+          dishState.dishes.filter((dish) => dish.featured)[0]
+        }
+        dishLoading={dishState.isLoading}
+        dishErrMess={dishState.errMess}
+        promotion={
+          promotionState.promotions.filter((promotion) => promotion.featured)[0]
+        }
+        promotionLoading={promotionState.isLoading}
+        promotionErrMess={promotionState.errMess}
+        leader={leaderState.leaders.filter((leader) => leader.featured)[0]}
+        leaderLoading={leaderState.isLoading}
+        leaderErrMess={leaderState.errMess}
       />
     );
   };
@@ -42,12 +61,13 @@ const MainComponent = () => {
     const selectedDishId = parseInt(match.params.dishId, 10);
     return (
       <DishDetail
-        dish={dishes.dishes.filter((dish) => dish.id === selectedDishId)[0]}
-        isLoading={dishes.isLoading}
-        errMess={dishes.errMess}
-        comments={comments.filter(
+        dish={dishState.dishes.filter((dish) => dish.id === selectedDishId)[0]}
+        dishLoading={dishState.isLoading}
+        dishErrMess={dishState.errMess}
+        comments={commentState.comments.filter(
           (comment) => comment.dishId === selectedDishId
         )}
+        commentErrMess={dishState.errMess}
       />
     );
   };
@@ -58,8 +78,27 @@ const MainComponent = () => {
       {/* Routes are defined and wrapped with a switch component */}
       <Switch>
         <Route path="/home" component={HomePage} />
-        <Route path="/aboutus" component={() => <About leaders={leaders} />} />
-        <Route exact path="/menu" component={() => <Menu dishes={dishes} />} />
+        <Route
+          path="/aboutus"
+          component={() => (
+            <About
+              leaders={leaderState.leaders}
+              isLoading={leaderState.isLoading}
+              errMess={leaderState.errMess}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/menu"
+          component={() => (
+            <Menu
+              dishes={dishState.dishes}
+              isLoading={dishState.isLoading}
+              errMess={dishState.errMess}
+            />
+          )}
+        />
         <Route path="/menu/:dishId" component={DishWithId} />
         <Route exact path="/contactus" component={Contact} />
         <Redirect to="/home" />

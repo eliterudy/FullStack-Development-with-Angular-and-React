@@ -8,12 +8,16 @@ import {
   Media,
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import Loading from "./LoadingComponent";
+import { baseURL } from "../shared/apis";
 
-const RenderLeader = ({ leader }) => {
+const RenderLeader = ({ leader, isLoading, errMess }) => {
+  console.log("leader", leader, isLoading, errMess);
+
   return (
     <Media tag="li">
       <Media left>
-        <Media object src="assets/images/alberto.png" alt={leader.name} />
+        <Media object src={baseURL + leader.image} alt={leader.name} />
       </Media>
       <Media body className="ml-5">
         <Media heading>{leader.name}</Media>
@@ -24,10 +28,25 @@ const RenderLeader = ({ leader }) => {
   );
 };
 
-const About = ({ leaders: Leaders }) => {
-  const leaders = Leaders.map((leader) => {
-    return <RenderLeader leader={leader} />;
-  });
+const About = ({ leaders: Leaders, isLoading, errMess }) => {
+  console.log(Leaders, isLoading, errMess);
+  var leaders;
+  if (isLoading) {
+    leaders = <Loading />;
+  } else if (errMess) {
+    leaders = <h4>{errMess}</h4>;
+  } else {
+    leaders = Leaders.map((leader) => {
+      return (
+        <RenderLeader
+          key={leader.id}
+          leader={leader}
+          isLoading={isLoading}
+          errMess={errMess}
+        />
+      );
+    });
+  }
 
   return (
     <div className="container">
