@@ -24,6 +24,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { postNewComment } from "../redux/thunk";
 import Loading from "./LoadingComponent";
 import { baseURL } from "../shared/apis";
+import { FadeTransform, Fade, Stagger } from "react-animation-components";
 
 const required = (value) => value && value.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
@@ -79,13 +80,18 @@ const RenderDish = ({ dish }) => {
   if (dish !== null) {
     return (
       <div className="col-12 col-md-5 m-1">
-        <Card>
-          <CardImg width="100%" src={baseURL + dish.image} alt={dish.name} />
-          <CardBody>
-            <CardTitle>{dish.name}</CardTitle>
-            <CardText>{dish.description}</CardText>
-          </CardBody>
-        </Card>
+        <FadeTransform
+          in
+          transformProps={{ exitTransform: "scale(0.5) translateY(-50%)" }}
+        >
+          <Card>
+            <CardImg width="100%" src={baseURL + dish.image} alt={dish.name} />
+            <CardBody>
+              <CardTitle>{dish.name}</CardTitle>
+              <CardText>{dish.description}</CardText>
+            </CardBody>
+          </Card>
+        </FadeTransform>
       </div>
     );
   } else {
@@ -97,26 +103,30 @@ const RenderComments = ({ comments, dishId }) => {
   if (comments !== null) {
     return (
       <div className="col-12 col-md-5 m-1">
-        <h3>Comments</h3>
-        <div className="list-unstyled">
-          {comments.map((comment) => {
-            const date = new Date(comment.date);
-            const options = {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            };
-            return (
-              <div key={comment.id}>
-                <p>{comment.comment}</p>
-                <p>
-                  -- {comment.author},{" "}
-                  {date.toLocaleDateString("en-EN", options)}
-                </p>
-              </div>
-            );
-          })}
-        </div>
+        <h4>Comments</h4>
+        <ul className="list-unstyled">
+          <Stagger in>
+            {comments.map((comment) => {
+              const date = new Date(comment.date);
+              const options = {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              };
+              return (
+                <Fade in>
+                  <li key={comment.id}>
+                    <p>{comment.comment}</p>
+                    <p>
+                      -- {comment.author},{" "}
+                      {date.toLocaleDateString("en-EN", options)}
+                    </p>
+                  </li>
+                </Fade>
+              );
+            })}
+          </Stagger>
+        </ul>
         <CommentForm dishId={dishId} />
       </div>
     );
