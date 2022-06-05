@@ -1,4 +1,3 @@
-import { COMMENTS } from "../shared/comments";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {

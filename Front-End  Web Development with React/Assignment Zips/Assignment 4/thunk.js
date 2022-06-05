@@ -1,3 +1,4 @@
+import { DISHES } from "../shared/dishes";
 import apis from "../shared/apis";
 import actionReducers from "./index";
 const {
@@ -34,9 +35,12 @@ export const fetchDishes = () => async (dispatch) => {
   apis
     .getDishes()
     .then(({ data }) => {
+      console.log("DISHES: ", data);
       dispatch(getAddDishes(data));
     })
     .catch((error) => {
+      console.log("DISHES: ", error);
+
       dispatch(getDishesFailed(error.code + ": " + error.message));
     });
 };
@@ -46,9 +50,12 @@ export const fetchPromotions = () => async (dispatch) => {
   apis
     .getPromotions()
     .then(({ data }) => {
+      // console.log("PROMO: ", data);
       dispatch(getAddPromotions(data));
     })
     .catch((error) => {
+      // console.log("PROMO: ", error);
+
       dispatch(getPromotionsFailed(error.code + ": " + error.message));
     });
 };
@@ -58,9 +65,12 @@ export const fetchComments = () => async (dispatch) => {
   apis
     .getComments()
     .then(({ data }) => {
+      // console.log("COMMENTS: ", data);
       dispatch(getAddComments(data));
     })
     .catch((error) => {
+      // console.log("COMMENTS: ", error);
+
       dispatch(getCommentsFailed(error.code + ": " + error.message));
     });
 };
@@ -70,9 +80,12 @@ export const fetchLeaders = () => async (dispatch) => {
   apis
     .getLeaders()
     .then(({ data }) => {
+      // console.log("LEADERS: ", data);
       dispatch(getAddLeaders(data));
     })
     .catch((error) => {
+      // console.log("LEADERS: ", error);
+
       dispatch(getLeadersFailed(error.code + ": " + error.message));
     });
 };
@@ -82,6 +95,7 @@ export const postNewComment = (payload, id) => async (dispatch) => {
   apis
     .postNewComment(payload, id)
     .then(({ data }) => {
+      console.log(data, "APISADASD");
       dispatch(addNewComment(data));
     })
     .catch((error) => alert("Your comment could not be posted"));

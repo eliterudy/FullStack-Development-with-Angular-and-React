@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Menu, Header, Footer, Home, Contact, About } from "./index";
 import {
   fetchDishes,
@@ -9,6 +9,8 @@ import {
 import { Switch, Route, Redirect } from "react-router-dom";
 import DishDetail from "./DishDetailComponent";
 import { useSelector, useDispatch } from "react-redux";
+import { actions } from "react-redux-form";
+import { baseURL } from "../shared/apis";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { withRouter } from "react-router-dom";
 const MainComponent = withRouter((props) => {
@@ -19,7 +21,7 @@ const MainComponent = withRouter((props) => {
     dispatch(fetchComments());
     dispatch(fetchPromotions());
     dispatch(fetchLeaders());
-  }, [dispatch]);
+  }, []);
 
   const state = useSelector((state) => {
     const { dishes, promotions, leaders, comments } = state;

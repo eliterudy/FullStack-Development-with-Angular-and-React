@@ -12,7 +12,7 @@ import Loading from "./LoadingComponent";
 import { baseURL } from "../shared/apis";
 import { Fade, Stagger } from "react-animation-components";
 
-const RenderLeader = ({ leader }) => {
+const RenderLeader = ({ leader, isLoading, errMess }) => {
   return (
     <Fade in>
       <Media tag="li">

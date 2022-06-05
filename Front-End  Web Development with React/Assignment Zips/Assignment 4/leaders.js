@@ -3,28 +3,29 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isLoading: true,
   errMess: null,
-  dishes: [],
+  leaders: [],
 };
-export const dishesSlice = createSlice({
-  name: "dishes",
+export const leadersSlice = createSlice({
+  name: "leaders",
   initialState,
   reducers: {
-    dishesLoading: (state) => {
+    leadersLoading: (state) => {
       state.errMess = null;
       state.isLoading = true;
     },
-    dishesFailed: (state, action) => {
+    leadersFailed: (state, action) => {
       state.errMess = action.payload;
       state.isLoading = false;
     },
-    addDishes: (state, action) => {
+    addLeaders: (state, action) => {
       state.errMess = null;
       state.isLoading = false;
-      state.dishes = [...action.payload];
+      state.leaders = [...action.payload];
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { dishesLoading, dishesFailed, addDishes } = dishesSlice.actions;
-export default dishesSlice.reducer;
+export const { leadersLoading, leadersFailed, addLeaders } =
+  leadersSlice.actions;
+export default leadersSlice.reducer;

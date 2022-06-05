@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardBody,
@@ -11,16 +11,12 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  Form,
-  FormGroup,
   Label,
-  Input,
-  Row,
   Col,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { postNewComment } from "../redux/thunk";
 import Loading from "./LoadingComponent";
 import { baseURL } from "../shared/apis";
@@ -172,6 +168,7 @@ const CommentForm = ({ dishId }) => {
           <LocalForm onSubmit={(values) => handleSubmit(values)}>
             <Col className="form-group pl-0 pr-0">
               <Label htmlFor="yourName">Rating</Label>
+              {/*  eslint-disable-next-line react/jsx-pascal-case */}
               <Control.select
                 className="form-control"
                 model=".rating"
@@ -186,6 +183,7 @@ const CommentForm = ({ dishId }) => {
             </Col>
             <Col className="form-group pl-0 pr-0">
               <Label htmlFor="yourName">Your Name</Label>
+              {/*  eslint-disable-next-line react/jsx-pascal-case */}
               <Control.text
                 model=".author"
                 id="author"
@@ -211,6 +209,7 @@ const CommentForm = ({ dishId }) => {
             </Col>
             <Col className="form-group pl-0 pr-0">
               <Label htmlFor="yourName">Comment</Label>
+              {/*  eslint-disable-next-line react/jsx-pascal-case */}
               <Control.textarea
                 model=".comment"
                 id="comment"

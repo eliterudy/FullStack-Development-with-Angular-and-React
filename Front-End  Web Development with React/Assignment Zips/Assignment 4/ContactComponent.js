@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
   Button,
+  FormGroup,
   Label,
+  Input,
   Col,
   Row,
 } from "reactstrap";
@@ -25,6 +27,7 @@ const Contact = (props) => {
 
   // Form onsubmit
   const handleSubmit = (values) => {
+    // alert(JSON.stringify(values));
     dispatch(postFeedback(values));
     dispatch(actions.reset("feedback"));
   };
@@ -72,8 +75,7 @@ const Contact = (props) => {
             >
               <i className="fa fa-phone"></i> Call
             </a>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a href="" role="button" className="btn btn-info">
+            <a role="button" className="btn btn-info">
               <i className="fa fa-skype"></i> Skype
             </a>
             <a
@@ -99,7 +101,6 @@ const Contact = (props) => {
                 First Name
               </Label>
               <Col md={10}>
-                {/*  eslint-disable-next-line react/jsx-pascal-case */}
                 <Control.text
                   model=".firstname"
                   id="firstname"
@@ -130,7 +131,6 @@ const Contact = (props) => {
                 Last Name
               </Label>
               <Col md={10}>
-                {/*  eslint-disable-next-line react/jsx-pascal-case */}
                 <Control.text
                   model=".lastname"
                   id="lastname"
@@ -161,7 +161,6 @@ const Contact = (props) => {
                 Contact Tel.
               </Label>
               <Col md={10}>
-                {/*  eslint-disable-next-line react/jsx-pascal-case */}
                 <Control.text
                   model=".telnum"
                   id="telnum"
@@ -194,7 +193,6 @@ const Contact = (props) => {
                 Email
               </Label>
               <Col md={10}>
-                {/*  eslint-disable-next-line react/jsx-pascal-case */}
                 <Control.text
                   model=".email"
                   id="email"
@@ -222,7 +220,6 @@ const Contact = (props) => {
               <Col md={{ size: 6, offset: 2 }}>
                 <div className="form-check" check>
                   <Label check>
-                    {/*  eslint-disable-next-line react/jsx-pascal-case */}
                     <Control.checkbox
                       model=".agree"
                       name="agree"
@@ -233,7 +230,6 @@ const Contact = (props) => {
                 </div>
               </Col>
               <Col md={{ size: 3, offset: 1 }}>
-                {/*  eslint-disable-next-line react/jsx-pascal-case */}
                 <Control.select model=".contactType" name="contactType">
                   <option>Tel.</option>
                   <option>Email</option>
@@ -246,7 +242,6 @@ const Contact = (props) => {
                 Your Feedback
               </Label>
               <Col md={10}>
-                {/*  eslint-disable-next-line react/jsx-pascal-case */}
                 <Control.textarea
                   model=".message"
                   className="form-control"

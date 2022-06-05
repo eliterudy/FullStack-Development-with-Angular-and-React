@@ -1,10 +1,5 @@
-import {
-  configureStore,
-  combineReducers,
-  applyMiddleware,
-} from "@reduxjs/toolkit";
-import rootReducer from "./reducer";
-import logger, { createLogger } from "redux-logger";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { createLogger } from "redux-logger";
 import { createForms } from "react-redux-form";
 
 import thunk from "redux-thunk";
