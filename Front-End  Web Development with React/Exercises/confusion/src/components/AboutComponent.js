@@ -10,21 +10,22 @@ import {
 import { Link } from "react-router-dom";
 import Loading from "./LoadingComponent";
 import { baseURL } from "../shared/apis";
+import { Fade, Stagger } from "react-animation-components";
 
 const RenderLeader = ({ leader, isLoading, errMess }) => {
-  console.log("leader", leader, isLoading, errMess);
-
   return (
-    <Media tag="li">
-      <Media left>
-        <Media object src={baseURL + leader.image} alt={leader.name} />
+    <Fade in>
+      <Media tag="li">
+        <Media left>
+          <Media object src={baseURL + leader.image} alt={leader.name} />
+        </Media>
+        <Media body className="ml-5">
+          <Media heading>{leader.name}</Media>
+          <p>{leader.designation}</p>
+          <p>{leader.description}</p>
+        </Media>
       </Media>
-      <Media body className="ml-5">
-        <Media heading>{leader.name}</Media>
-        <p>{leader.designation}</p>
-        <p>{leader.description}</p>
-      </Media>
-    </Media>
+    </Fade>
   );
 };
 
@@ -124,7 +125,9 @@ const About = ({ leaders: Leaders, isLoading, errMess }) => {
           <h2>Corporate Leadership</h2>
         </div>
         <div className="col-12">
-          <Media list>{leaders}</Media>
+          <Stagger in>
+            <Media list>{leaders}</Media>
+          </Stagger>
         </div>
       </div>
     </div>

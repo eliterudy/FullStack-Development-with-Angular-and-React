@@ -100,3 +100,12 @@ export const postNewComment = (payload, id) => async (dispatch) => {
     })
     .catch((error) => alert("Your comment could not be posted"));
 };
+
+export const postFeedback = (payload) => async (dispatch) => {
+  apis
+    .postFeedback(payload)
+    .then(({ data }) => {
+      alert(JSON.stringify(data), "FEEDBACK ALERT");
+    })
+    .catch((error) => alert("Your comment could not be posted"));
+};

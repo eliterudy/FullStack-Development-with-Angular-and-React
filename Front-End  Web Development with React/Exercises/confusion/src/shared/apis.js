@@ -48,6 +48,14 @@ const apiList = {
       data,
     });
   },
+
+  postFeedback: (data) => {
+    return Axios({
+      url: `/feedback`,
+      method: "post",
+      data,
+    });
+  },
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export

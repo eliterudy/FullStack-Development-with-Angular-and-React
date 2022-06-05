@@ -9,7 +9,8 @@ import {
   Col,
   Row,
 } from "reactstrap";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { postFeedback } from "../redux/thunk";
 
 import { Link } from "react-router-dom";
 import { Control, Form, Errors, actions } from "react-redux-form";
@@ -26,7 +27,8 @@ const Contact = (props) => {
 
   // Form onsubmit
   const handleSubmit = (values) => {
-    alert(JSON.stringify(values));
+    // alert(JSON.stringify(values));
+    dispatch(postFeedback(values));
     dispatch(actions.reset("feedback"));
   };
 
