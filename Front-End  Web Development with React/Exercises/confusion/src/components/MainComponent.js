@@ -11,8 +11,9 @@ import DishDetail from "./DishDetailComponent";
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "react-redux-form";
 import { baseURL } from "../shared/apis";
-
-const MainComponent = () => {
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { withRouter } from "react-router-dom";
+const MainComponent = withRouter((props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -76,36 +77,40 @@ const MainComponent = () => {
     <div>
       <Header />
       {/* Routes are defined and wrapped with a switch component */}
-      <Switch>
-        <Route path="/home" component={HomePage} />
-        <Route
-          path="/aboutus"
-          component={() => (
-            <About
-              leaders={leaderState.leaders}
-              isLoading={leaderState.isLoading}
-              errMess={leaderState.errMess}
+      <TransitionGroup>
+        <CSSTransition key={props.location.key} classNames="page" timeout={300}>
+          <Switch>
+            <Route path="/home" component={HomePage} />
+            <Route
+              path="/aboutus"
+              component={() => (
+                <About
+                  leaders={leaderState.leaders}
+                  isLoading={leaderState.isLoading}
+                  errMess={leaderState.errMess}
+                />
+              )}
             />
-          )}
-        />
-        <Route
-          exact
-          path="/menu"
-          component={() => (
-            <Menu
-              dishes={dishState.dishes}
-              isLoading={dishState.isLoading}
-              errMess={dishState.errMess}
+            <Route
+              exact
+              path="/menu"
+              component={() => (
+                <Menu
+                  dishes={dishState.dishes}
+                  isLoading={dishState.isLoading}
+                  errMess={dishState.errMess}
+                />
+              )}
             />
-          )}
-        />
-        <Route path="/menu/:dishId" component={DishWithId} />
-        <Route exact path="/contactus" component={Contact} />
-        <Redirect to="/home" />
-      </Switch>
+            <Route path="/menu/:dishId" component={DishWithId} />
+            <Route exact path="/contactus" component={Contact} />
+            <Redirect to="/home" />
+          </Switch>
+        </CSSTransition>
+      </TransitionGroup>
       <Footer />
     </div>
   );
-};
+});
 
 export default MainComponent;

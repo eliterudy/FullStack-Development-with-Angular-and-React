@@ -13,8 +13,6 @@ export const commentsSlice = createSlice({
   reducers: {
     addNewComment: (state, action) => {
       var newComment = action.payload;
-      newComment.id = state.comments.length;
-      newComment.date = new Date().toISOString();
       state.comments = [...state.comments, newComment];
     },
     commentsLoading: (state) => {

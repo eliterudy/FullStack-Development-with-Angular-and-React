@@ -41,6 +41,13 @@ const apiList = {
       params,
     });
   },
+  postNewComment: (data, id) => {
+    return Axios({
+      url: `/comments`,
+      method: "post",
+      data,
+    });
+  },
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export

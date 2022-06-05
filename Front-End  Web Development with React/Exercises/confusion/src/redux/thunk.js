@@ -89,3 +89,14 @@ export const fetchLeaders = () => async (dispatch) => {
       dispatch(getLeadersFailed(error.code + ": " + error.message));
     });
 };
+
+export const postNewComment = (payload, id) => async (dispatch) => {
+  payload.date = new Date().toISOString();
+  apis
+    .postNewComment(payload, id)
+    .then(({ data }) => {
+      console.log(data, "APISADASD");
+      dispatch(addNewComment(data));
+    })
+    .catch((error) => alert("Your comment could not be posted"));
+};

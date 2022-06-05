@@ -21,7 +21,7 @@ import {
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { useSelector, useDispatch } from "react-redux";
-import { addNewComment } from "../redux/comments";
+import { postNewComment } from "../redux/thunk";
 import Loading from "./LoadingComponent";
 import { baseURL } from "../shared/apis";
 
@@ -139,12 +139,15 @@ const CommentForm = ({ dishId }) => {
   const handleSubmit = (values) => {
     updateModalOpen(!isModalOpen);
     dispatch(
-      addNewComment({
-        dishId: dishId,
-        rating: values.rating || 1,
-        author: values.author,
-        comment: values.comment || "",
-      })
+      postNewComment(
+        {
+          dishId: dishId,
+          rating: values.rating || 1,
+          author: values.author,
+          comment: values.comment || "",
+        },
+        dishId
+      )
     );
   };
 
