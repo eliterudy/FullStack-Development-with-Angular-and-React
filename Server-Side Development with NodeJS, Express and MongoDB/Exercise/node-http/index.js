@@ -5,7 +5,7 @@ const path = require("path");
 const hostname = "localhost";
 const port = 3000;
 
-const server = http.createServer((req, res) => {
+const server = http.createServer((req,  ) => {
   console.log("Request for " + req.url + "by method " + req.method);
 
   if (req.method == "GET") {
