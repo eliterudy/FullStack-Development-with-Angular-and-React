@@ -1,45 +1,25 @@
 const assert = require("assert");
 
 // insert new element in a collection -> INSERT/POST action
-exports.insertDocument = (db, document, collection, callback) => {
+exports.insertDocument = (db, document, collection) => {
   const coll = db.collection(collection);
-  coll.insert(document, (err, result) => {
-    assert.equal(err, null);
-    console.log(
-      "Inserted " +
-        JSON.stringify(result) +
-        " documents into the collection " +
-        collection
-    );
-    callback(result);
-  });
+  return coll.insert(document);
 };
 
 // get all documents from a collection -> GET action
-exports.findDocuments = (db, collection, callback) => {
+exports.findDocuments = (db, collection) => {
   const coll = db.collection(collection);
-  coll.find({}).toArray((err, docs) => {
-    assert.equal(err, null);
-    callback(docs);
-  });
+  return coll.find({}).toArray();
 };
 
 // remove a document from a collection -> DELETE action
-exports.removeDocument = (db, document, collection, callback) => {
+exports.removeDocument = (db, document, collection) => {
   const coll = db.collection(collection);
-  coll.deleteOne(document, (err, result) => {
-    assert.equal(err, null);
-    console.log("Removed the document" + document);
-    callback(result);
-  });
+  return coll.deleteOne(document);
 };
 
 // update a document in a collection -> PUT/PATCH action
-exports.updateDocument = (db, document, update, collection, callback) => {
+exports.updateDocument = (db, document, update, collection) => {
   const coll = db.collection(collection);
-  coll.updateOne(document, { $set: update }, null, (err, result) => {
-    assert.equal(err, null);
-    console.log("Updated the document with ", update);
-    callback(result);
-  });
+  return coll.updateOne(document, { $set: update }, null);
 };
