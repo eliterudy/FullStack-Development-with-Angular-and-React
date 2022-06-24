@@ -1,6 +1,6 @@
 var express = require("express");
 const bodyParser = require("body-parser");
-const Users = require("../models/users");
+const User = require("../models/users");
 var passport = require("passport");
 var authenticate = require("../authenticate");
 
@@ -13,8 +13,8 @@ userRouter.get("/", function (req, res, next) {
 
 userRouter.post("/signup", function (req, res, next) {
   // register is a passport method
-  Users.register(
-    new Users({ username: req.body.username }),
+  User.register(
+    new User({ username: req.body.username }),
     req.body.password,
     (err, user) => {
       if (err) {
@@ -32,16 +32,20 @@ userRouter.post("/signup", function (req, res, next) {
   );
 });
 
-userRouter.post("/login", passport.authenticate("local"), (req, res) => {
-  var token = authenticate.getToken({ _id: req.user._id });
-  res.statusCode = 200;
-  res.setHeader("Content-Type", "application/json");
-  res.json({
-    success: true,
-    status: "You are successful logged in!",
-    token: token,
-  });
-});
+userRouter.post(
+  "/login",
+  passport.authenticate("local", { session: false }),
+  (req, res) => {
+    var token = authenticate.getToken({ _id: req.user._id });
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "application/json");
+    res.json({
+      success: true,
+      status: "You are successful logged in!",
+      token: token,
+    });
+  }
+);
 
 userRouter.get("/logout", (req, res) => {
   if (req.session) {
