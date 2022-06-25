@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
-const { loadType } = require("mongoose-currency");
 const Schema = mongoose.Schema;
-require("mongoose-currency") - loadType(mongoose);
-
+require("mongoose-currency").loadType(mongoose);
 const Currency = mongoose.Types.Currency;
+
 var commentSchema = new Schema(
   {
     rating: {
@@ -17,8 +16,8 @@ var commentSchema = new Schema(
       required: true,
     },
     author: {
-      type: String,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   {
