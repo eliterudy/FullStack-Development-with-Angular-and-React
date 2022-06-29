@@ -2,6 +2,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 const authenticate = require("../authenticate");
 var multer = require("multer");
+const cors = require("./cors");
 
 // multer property to store assets from incoming request on Disk
 var storage = multer.diskStorage({
@@ -33,10 +34,18 @@ uploadRouter.use(bodyParser.json());
 
 uploadRouter
   .route("/")
-  .get(authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
-    res.statusCode = 403;
-    res.end("GET operation not supported on /imageUpload");
+  .options(cors.corsWithOptions, (req, res) => {
+    res.sendStatus(200);
   })
+  .get(
+    cors.cors,
+    authenticate.verifyUser,
+    authenticate.verifyAdmin,
+    (req, res, next) => {
+      res.statusCode = 403;
+      res.end("GET operation not supported on /imageUpload");
+    }
+  )
   .post(
     authenticate.verifyUser,
     authenticate.verifyAdmin,

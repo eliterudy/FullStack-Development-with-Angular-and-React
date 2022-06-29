@@ -4,6 +4,7 @@ var User = require("./models/users");
 var JtwStrategy = require("passport-jwt").Strategy;
 var ExtractJwt = require("passport-jwt").ExtractJwt;
 var jwt = require("jsonwebtoken");
+var FacebookTokenStrategy = require("passport-facebook-token");
 
 var config = require("./config");
 
@@ -14,7 +15,7 @@ passport.deserializeUser(User.deserializeUser());
 /* To generate Token using JwtWebToken and use sign method */
 exports.getToken = (user) => {
   // params are payload data, secret key for encription and other options
-  return jwt.sign(user, config.secretKey, { expiresIn: 3600 });
+  return jwt.sign(user, config.secretKey, { expiresIn: 31600 });
 };
 
 var optionsForJWTStragety = {};
@@ -44,3 +45,30 @@ exports.verifyAdmin = (req, res, next) => {
   err.status = 403;
   return next(err);
 };
+
+exports.facebookPassport = passport.use(
+  new FacebookTokenStrategy(
+    {
+      clientID: config.facebook.clientId,
+      clientSecret: config.facebook.clientSecret,
+    },
+    (accessToken, refreshToken, profile, done) => {
+      User.findOne({ facebookId: profile.id }, (err, user) => {
+        if (err) {
+          return done(err, false);
+        } else if (user) {
+          return done(null, user);
+        } else {
+          user = new User({ username: profile.displayName });
+          user.facebookId = profile.id;
+          user.firstname = profile.name.givenName;
+          user.lastname = profile.name.familyName;
+          user.save((err, user) => {
+            if (err) return done(err, false);
+            else return done(null, user);
+          });
+        }
+      });
+    }
+  )
+);
