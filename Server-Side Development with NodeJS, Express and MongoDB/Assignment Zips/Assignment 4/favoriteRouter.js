@@ -78,7 +78,8 @@ favoriteRouter
   })
   .put(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
     res.statusCode = 403;
-    res.end("Put operation not supported on /favorites/");
+    res.setHeader("Context-Type", "text/plain");
+    res.end("PUT operation not supported on /favorites/");
   })
   .delete(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
     Favorites.findOne({ user: req.user._id }, (err, favorites) => {
@@ -112,6 +113,7 @@ favoriteRouter
   })
   .get(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
     res.statusCode = 403;
+    res.setHeader("Context-Type", "text/plain");
     res.end("GET operation not supported on /favorites/dishId");
   })
   .post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
@@ -154,6 +156,7 @@ favoriteRouter
   })
   .put(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
     res.statusCode = 403;
+    res.setHeader("Context-Type", "text/plain");
     res.end("PUT operation not supported on /favorites/");
   })
   .delete(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
