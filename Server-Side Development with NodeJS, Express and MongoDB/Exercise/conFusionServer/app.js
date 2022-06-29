@@ -17,6 +17,7 @@ var leaderRouter = require("./routes/leaderRouter");
 var leaderRouter = require("./routes/leaderRouter");
 var uploadRouter = require("./routes/uploadRouter");
 var favoriteRouter = require("./routes/favoriteRouter");
+var commentRouter = require("./routes/commentRouter");
 
 var mongoose = require("mongoose");
 
@@ -64,6 +65,8 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/favorites", favoriteRouter);
 app.use("/dishes", dishRouter);
+app.use("/comments", commentRouter);
+
 app.use("/promotions", promoRouter);
 app.use("/leaders", leaderRouter);
 app.use("/imageUpload", uploadRouter);
