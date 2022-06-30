@@ -34,6 +34,7 @@ var app = express();
 
 // middleware to redirect to secureServer
 app.all("*", (req, res, next) => {
+  console.log("HEREEEE");
   if (req.secure) {
     return next();
   } else {

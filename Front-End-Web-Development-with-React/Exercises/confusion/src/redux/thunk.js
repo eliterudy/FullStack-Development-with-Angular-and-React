@@ -37,6 +37,7 @@ export const fetchDishes = () => async (dispatch) => {
       dispatch(getAddDishes(data));
     })
     .catch((error) => {
+      console.log(error);
       dispatch(getDishesFailed(error.code + ": " + error.message));
     });
 };

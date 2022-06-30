@@ -1,9 +1,11 @@
 import axios from "axios";
 
-export const baseURL = "http://localhost:3002/";
+export const baseURL = "https://localhost:3443/";
+
 const headers = {
   Accept: "application/json",
   "Content-Type": "application/json",
+  Origin: baseURL,
 };
 
 const Axios = axios.create({
@@ -11,13 +13,17 @@ const Axios = axios.create({
   timeout: 20000,
   headers: headers,
 });
+Axios.interceptors.request.use(async function (config) {
+  let token = await localStorage.getItem("token");
+  config.headers.Authorization = token ? `${token}` : "";
+  return config;
+});
 
 const apiList = {
   getDishes: (params) => {
     return Axios({
       url: `/dishes`,
       method: "get",
-      params,
     });
   },
   getPromotions: (params) => {

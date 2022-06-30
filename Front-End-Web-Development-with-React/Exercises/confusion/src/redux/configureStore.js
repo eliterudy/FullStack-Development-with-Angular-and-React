@@ -9,7 +9,7 @@ import comments from "./comments";
 import leaders from "./leaders";
 import { InitialFeedback } from "./forms";
 
-const middleware = [createLogger(), thunk];
+const middleware = [thunk];
 const enhancers = [...middleware];
 export default configureStore({
   reducer: combineReducers({

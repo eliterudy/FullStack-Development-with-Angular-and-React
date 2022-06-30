@@ -11,11 +11,16 @@ import Loading from "./LoadingComponent";
 import { baseURL } from "../shared/apis";
 import { FadeTransform } from "react-animation-components";
 const RenderCard = ({ item, isLoading, errMess }) => {
+  console.log("ITEM :", item, isLoading, errMess);
+
   if (isLoading) {
     return <Loading />;
   } else if (errMess) {
     return <h4>{errMess}</h4>;
+  } else if (!isLoading && !errMess && item == undefined) {
+    return null;
   }
+
   return (
     <FadeTransform
       in

@@ -5,10 +5,13 @@ const app = express();
 const whitelist = [
   "https://localhost:3000",
   "https://localhost:3443",
-  "https://Gavins-MBP.hsd1.ma.comcast.net:3001",
+  "https://localhost:3001",
+  "http://localhost:3001",
+  "http://localhost:3002",
 ];
 
 var corsOptionsDelegate = (req, callback) => {
+  console.log("JASDKAMSODMO", req, callback);
   var corsOptions;
   if (whitelist.indexOf(req.header("Origin")) !== -1) {
     corsOptions = {
