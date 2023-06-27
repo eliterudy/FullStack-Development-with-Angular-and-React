@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Jumbotron,
   Navbar,
   NavbarBrand,
   Nav,
@@ -94,7 +93,7 @@ const Header = () => {
           </Collapse>
         </div>
       </Navbar>
-      <Jumbotron>
+      <div clasName="jumbotron">
         <div className="container">
           <div className="row row-header">
             <div className="col-12 col-sm-6">
@@ -107,8 +106,8 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </Jumbotron>
-      <Modal isOpen={isModalOpen} toggle={() => toggleModal()}>
+      </div>
+      {/* <Modal isOpen={isModalOpen} toggle={() => toggleModal()}>
         <ModalHeader toggle={() => toggleModal()}>Login</ModalHeader>
         <ModalBody>
           <Form onSubmit={(e) => handleLogin(e)}>
@@ -145,7 +144,7 @@ const Header = () => {
             </Button>
           </Form>
         </ModalBody>
-      </Modal>
+      </Modal> */}
     </>
   );
 };

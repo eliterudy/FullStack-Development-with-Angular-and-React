@@ -1,8 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-
+const fs = require("fs");
 const dishRouter = express.Router();
 dishRouter.use(bodyParser.json());
+var udid = require("udid")("thecookbook");
 
 /* api endpoint for /dishes */
 
@@ -14,7 +15,44 @@ dishRouter
     next();
   })
   .get((req, res, next) => {
-    res.end("Will send all the dishes to you!");
+    let rawdata1 = fs.readFileSync(require.resolve("../dataset1.json"), {
+      encoding: "utf8",
+    });
+    let rawdata2 = fs.readFileSync(require.resolve("../dataset2.json"), {
+      encoding: "utf8",
+    });
+    var data1 = JSON.parse(rawdata1).data;
+    var data2 = JSON.parse(rawdata2).data;
+    console.log(data1[0].url);
+    var results = [];
+    for (var i = 0; i < data1.length; i++) {
+      var matchedResult = data2.filter((d) => d.URL === data1[i].url);
+      if (matchedResult.length > 0) {
+        var result = {
+          ...data1[i],
+          ingredients: data1[i].ingredients.split(","),
+          instructions: data1[i].instructions
+            .replaceAll(".", ".\n")
+            .split("\n"),
+          prepTimeInMins: matchedResult[0].PrepTimeInMins,
+          cookTimeInMins: matchedResult[0].CookTimeInMins,
+          servings: matchedResult[0].Servings,
+          course: matchedResult[0].Course,
+          diet: matchedResult[0].Diet,
+        };
+        delete result["url"];
+        console.log(result, "\n\n");
+        results.push(result);
+      }
+    }
+    // fs.readFile("../dataset1.json", (err, data) => {
+    //   if (err) throw err;
+    //   let data1 = JSON.parse(data);
+    //   console.log(data1);
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "application/json");
+    res.json(results);
+    // });
   })
   .post((req, res, next) => {
     res.end(

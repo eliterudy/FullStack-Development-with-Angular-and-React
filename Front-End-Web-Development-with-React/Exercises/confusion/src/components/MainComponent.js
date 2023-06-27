@@ -70,7 +70,7 @@ const MainComponent = withRouter((props) => {
       />
     );
   };
-
+  console.log("LOCARTION: ", props.location);
   return (
     <div>
       <Header />

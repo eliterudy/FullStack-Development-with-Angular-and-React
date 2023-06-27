@@ -5,7 +5,7 @@ const path = require("path");
 const hostname = "localhost";
 const port = 3000;
 
-const server = http.createServer((req,  ) => {
+const server = http.createServer((req) => {
   console.log("Request for " + req.url + "by method " + req.method);
 
   if (req.method == "GET") {
@@ -61,4 +61,6 @@ const server = http.createServer((req,  ) => {
 
 server.listen(port, hostname, () => {
   console.log(`Server running at https://${hostname}:${port}`);
+  console.log(a);
+  const a = 10;
 });

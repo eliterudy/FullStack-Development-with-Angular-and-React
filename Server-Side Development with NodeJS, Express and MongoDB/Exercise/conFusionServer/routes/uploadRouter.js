@@ -3,6 +3,7 @@ var bodyParser = require("body-parser");
 const authenticate = require("../authenticate");
 var multer = require("multer");
 const cors = require("./cors");
+const { urlencoded } = require("express");
 
 // multer property to store assets from incoming request on Disk
 var storage = multer.diskStorage({
@@ -46,16 +47,12 @@ uploadRouter
       res.end("GET operation not supported on /imageUpload");
     }
   )
-  .post(
-    authenticate.verifyUser,
-    authenticate.verifyAdmin,
-    upload.single("imageFile"),
-    (req, res) => {
-      res.statusCode = 200;
-      res.setHeader("Content-Type", "application/json");
-      res.json(req.file);
-    }
-  )
+  .post(upload.single("imageFile"), (req, res) => {
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "application/json");
+    console.log("here", upload.storage.getFileName);
+    res.json({ filePath: urlencoded("../public/images") });
+  })
   .put(authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
     res.statusCode = 403;
     res.end("PUT operation not supported on /imageUpload");
