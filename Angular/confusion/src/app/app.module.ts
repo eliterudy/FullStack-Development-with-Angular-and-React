@@ -8,6 +8,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 // Components
 import { AppComponent } from './app.component';
@@ -26,6 +31,7 @@ import { LeaderService } from './services/leader.service';
 
 // For Routing
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   // decorator to modify js classes
@@ -38,6 +44,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
     AboutComponent,
     HomeComponent,
     ContactComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +57,13 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
     MatButtonModule,
     FontAwesomeModule,
     AppRoutingModule,
+    MatDialogModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
   ],
+  exports: [MatDialogModule],
   providers: [DishService, PromotionService, LeaderService],
   bootstrap: [AppComponent],
 })
