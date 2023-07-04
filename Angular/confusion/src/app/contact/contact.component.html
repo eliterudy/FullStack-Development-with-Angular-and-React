@@ -56,13 +56,9 @@
             type="text"
             required
           />
-          <mat-error
-            *ngIf="
-              feedbackForm.get('firstname')?.hasError('required') &&
-              feedbackForm.get('firstname')?.touched
-            "
-            >First name is required</mat-error
-          >
+          <mat-error *ngIf="formErrors.firstname">{{
+            formErrors.firstname
+          }}</mat-error>
         </mat-form-field>
         <mat-form-field class="half-width">
           <input
@@ -72,13 +68,9 @@
             type="text"
             required
           />
-          <mat-error
-            *ngIf="
-              feedbackForm.get('lastname')?.hasError('required') &&
-              feedbackForm.get('lastname')?.touched
-            "
-            >Last name is required</mat-error
-          >
+          <mat-error *ngIf="formErrors.lastname">{{
+            formErrors.lastname
+          }}</mat-error>
         </mat-form-field>
       </p>
       <p>
@@ -88,15 +80,12 @@
             formControlName="telnum"
             placeholder="Tel. Number"
             type="tel"
+            pattern="[0-9]*"
             required
           />
-          <mat-error
-            *ngIf="
-              feedbackForm.get('telnum')?.hasError('required') &&
-              feedbackForm.get('telnum')?.touched
-            "
-            >Tel. number is required</mat-error
-          >
+          <mat-error *ngIf="formErrors.telnum">{{
+            formErrors.telnum
+          }}</mat-error>
         </mat-form-field>
         <mat-form-field class="half-width">
           <input
@@ -104,15 +93,10 @@
             formControlName="email"
             placeholder="Email"
             type="email"
+            email
             required
           />
-          <mat-error
-            *ngIf="
-              feedbackForm.get('email')?.hasError('required') &&
-              feedbackForm.get('email')?.touched
-            "
-            >Email ID is required</mat-error
-          >
+          <mat-error *ngIf="formErrors.email">{{ formErrors.email }}</mat-error>
         </mat-form-field>
       </p>
       <table class="form-size">
