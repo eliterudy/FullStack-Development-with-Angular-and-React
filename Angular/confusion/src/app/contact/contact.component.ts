@@ -1,12 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
+import messages from '../shared/messages';
+const { formErrorMessages } = messages || {};
+
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
 })
 export class ContactComponent implements OnInit {
+  // Update form in template
   @ViewChild('fform')
   feedbackFormDirective: any;
 
@@ -19,27 +23,6 @@ export class ContactComponent implements OnInit {
     lastname: '',
     telnum: '',
     email: '',
-  };
-
-  validationMessages: any = {
-    firstname: {
-      required: 'First Name is required.',
-      minlength: 'First Name must be at least 2 characters long.',
-      maxlength: 'FirstName cannot be more than 25 characters long.',
-    },
-    lastname: {
-      required: 'Last Name is required.',
-      minlength: 'Last Name must be at least 2 characters long.',
-      maxlength: 'Last Name cannot be more than 25 characters long.',
-    },
-    telnum: {
-      required: 'Tel. number is required.',
-      pattern: 'Tel. number must contain only numbers.',
-    },
-    email: {
-      required: 'Email is required.',
-      email: 'Email not in valid format.',
-    },
   };
 
   constructor(private fb: FormBuilder) {
@@ -81,6 +64,7 @@ export class ContactComponent implements OnInit {
   }
 
   onValueChanged(data?: any) {
+    console.log(data);
     if (!this.feedbackForm) {
       return;
     }
@@ -91,7 +75,7 @@ export class ContactComponent implements OnInit {
         this.formErrors[field] = '';
         const control = form.get(field);
         if (control && control.dirty && !control.valid) {
-          const messages = this.validationMessages[field];
+          const messages = formErrorMessages[field];
           for (const key in control.errors) {
             if (control.errors.hasOwnProperty(key)) {
               this.formErrors[field] += messages[key] + ' ';
