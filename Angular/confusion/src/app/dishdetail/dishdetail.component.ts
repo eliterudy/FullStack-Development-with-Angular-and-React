@@ -21,6 +21,8 @@ export class DishdetailComponent implements OnInit {
   commentFormDirective: any;
 
   dish?: Dish;
+  dishcopy?: Dish; // copy for updation of comments and reload into dish on success PUT REST api request
+
   dishIds?: string[];
   prev?: string;
   next?: string;
@@ -66,6 +68,7 @@ export class DishdetailComponent implements OnInit {
       .subscribe({
         next: (dish) => {
           this.dish = dish;
+          this.dishcopy = dish;
           this.setPrevNext(dish.id);
         },
         error: (errMess) => (this.errMess = errMess),
@@ -141,11 +144,25 @@ export class DishdetailComponent implements OnInit {
 
   // on submit for new comment form
   onSubmit = () => {
-    this.dish?.comments.push({
+    this.comment = {
       ...this.commentForm.value,
       date: new Date().toISOString(),
+    };
+    this.dish?.comments.push(this.comment);
+    this.dishcopy?.comments.push(this.comment);
+
+    this.dishservice.putDish(this.dishcopy!).subscribe({
+      next: (dish) => {
+        this.dish = dish;
+        this.dishcopy = dish;
+      },
+      error: (errMess) => {
+        this.dish = undefined;
+        this.dishcopy = undefined;
+        this.errMess = <any>errMess;
+      },
     });
-    console.log(this.comment);
+
     this.commentForm.reset({
       author: '',
       rating: 1,

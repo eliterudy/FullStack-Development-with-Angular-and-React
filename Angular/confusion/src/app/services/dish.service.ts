@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, delay, map } from 'rxjs/operators';
 import { Dish } from '../shared/dish';
@@ -15,6 +15,17 @@ export class DishService {
     private http: HttpClient,
     private processHTTPMsgService: ProcessHTTPMsgService
   ) {}
+
+  putDish(dish: Dish): Observable<Dish> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http
+      .put<Dish>(`${baseURL}/dishes/${dish.id}`, dish, httpOptions)
+      .pipe(catchError(this.processHTTPMsgService.handleError)); // handling errors using error message handler service
+  }
 
   getAllDishes = (): Observable<Dish[]> => {
     return this.http
