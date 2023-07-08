@@ -12,7 +12,12 @@
         *ngFor="let dish of dishes"
         [routerLink]="['/dishdetail', dish.id]"
       >
-        <img height="400px" src="{{ dish.image }}" alt="{{ dish.name }}" />
+        <img
+          height="200px"
+          src="{{ baseURL }}/{{ dish.image }}"
+          alt="{{ dish.name }}"
+        />
+
         <mat-grid-tile-footer>
           <h1>{{ dish.name | uppercase }}</h1>
         </mat-grid-tile-footer>
