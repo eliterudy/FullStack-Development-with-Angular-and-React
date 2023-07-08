@@ -20,10 +20,11 @@ export class DishdetailComponent implements OnInit {
   @ViewChild('fform')
   commentFormDirective: any;
 
-  dish: Dish | undefined;
-  dishIds: string[] | undefined;
-  prev: string | undefined;
-  next: string | undefined;
+  dish?: Dish;
+  dishIds?: string[];
+  prev?: string;
+  next?: string;
+  errMess?: string;
 
   // Comment Form Group
   commentForm!: FormGroup;
@@ -53,16 +54,21 @@ export class DishdetailComponent implements OnInit {
 
     // Newer Approach: Using Subscriber to Observable | This DOESN'T needs page refresh
 
-    await this.dishservice
-      .getDishIds()
-      .subscribe((dishIds) => (this.dishIds = dishIds));
+    this.dishservice.getDishIds().subscribe({
+      next: (dishIds) => (this.dishIds = dishIds),
+      error: (errMess) => (this.errMess = errMess),
+    });
+
     this.route.params
       .pipe(
         switchMap((params: Params) => this.dishservice.getDish(params['id']))
       )
-      .subscribe((dish) => {
-        this.dish = dish;
-        this.setPrevNext(dish.id);
+      .subscribe({
+        next: (dish) => {
+          this.dish = dish;
+          this.setPrevNext(dish.id);
+        },
+        error: (errMess) => (this.errMess = errMess),
       });
   }
 

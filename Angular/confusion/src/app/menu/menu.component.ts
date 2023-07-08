@@ -9,8 +9,9 @@ import { DishService } from '../services/dish.service';
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
-  dishes: Dish[] | undefined;
-  selectedDish: Dish | undefined;
+  dishes?: Dish[];
+  selectedDish?: Dish;
+  errMess?: string;
 
   constructor(
     private dishService: DishService,
@@ -18,12 +19,11 @@ export class MenuComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.dishService.getAllDishes().subscribe((dishes) => {
-      this.dishes = dishes;
+    this.dishService.getAllDishes().subscribe({
+      next: (dishes) => {
+        this.dishes = dishes;
+      },
+      error: (errMess) => (this.errMess = <any>errMess),
     });
-  }
-
-  onSelect(dish: Dish) {
-    this.selectedDish = dish;
   }
 }
